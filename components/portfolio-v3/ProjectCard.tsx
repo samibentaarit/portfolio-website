@@ -63,7 +63,7 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
       className="relative w-full rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-md transform-gpu"
     >
       <div 
-        className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" 
+        className="absolute inset-0 rounded-2xl bg-linear-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" 
         style={{ transform: "translateZ(-50px)" }} 
       />
 
@@ -76,11 +76,12 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
               <p className="text-sm text-primary/80 font-mono">{company} • {period}</p>
             </div>
           </div>
-          <Link href={id ? `/projects/${id}` : "#"} passHref legacyBehavior>
-            {/* eslint-disable-next-line react/jsx-no-undef */}
-            <a className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-white text-muted-foreground transition-colors">
+          <Link href={id ? `/projects/${id}` : "/projects/"} passHref legacyBehavior>
+            <a
+              href={id ? `/projects/${id}` : "/projects/"}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-white text-muted-foreground transition-colors"
+            >
               <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} style={{ display: 'flex' }}>
-                {/* eslint-disable-next-line react/jsx-no-undef */}
                 <ExternalLink size={20} />
               </motion.span>
             </a>
