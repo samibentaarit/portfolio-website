@@ -22,50 +22,61 @@ const PHRASES = [
 ];
 
 export function PetCat() {
-  const { scrollYProgress } = useScroll()
-  const [mousePos, setMousePos] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 })
-  const [currentPhrase, setCurrentPhrase] = useState(PHRASES[0])
+  const { scrollYProgress } = useScroll();
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [currentPhrase, setCurrentPhrase] = useState(PHRASES[0]);
+  const [catYMax, setCatYMax] = useState(600);
+  const [isClient, setIsClient] = useState(false);
 
-  // Add some physics for a bouncy follow
-  const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 20 })
-  const catY = useTransform(springScroll, [0, 1], [40, window.innerHeight - 150])
+  // Only run window-dependent code on client
+  useEffect(() => {
+    setIsClient(true);
+    if (globalThis.window !== undefined) {
+      setCatYMax(globalThis.window.innerHeight - 150);
+    }
+  }, []);
+
+  const springScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
+  const catY = useTransform(springScroll, [0, 1], [40, catYMax]);
 
   useEffect(() => {
-    const mm = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY })
-    window.addEventListener("mousemove", mm)
-    return () => window.removeEventListener("mousemove", mm)
-  }, [])
+    if (globalThis.window === undefined) return;
+    setMousePos({ x: globalThis.window.innerWidth / 2, y: globalThis.window.innerHeight / 2 });
+    const mm = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
+    globalThis.window.addEventListener("mousemove", mm);
+    return () => globalThis.window.removeEventListener("mousemove", mm);
+  }, []);
 
   const handleHover = () => {
-    const nextPhase = PHRASES[Math.floor(Math.random() * PHRASES.length)]
-    setCurrentPhrase(nextPhase)
+    const nextPhase = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+    setCurrentPhrase(nextPhase);
+  };
+
+  // Eyes follow mouse only on client
+  const leftEyeOffset = { x: 0, y: 0 };
+  const rightEyeOffset = { x: 0, y: 0 };
+  if (isClient && globalThis.window !== undefined) {
+    const catCenterX = globalThis.window.innerWidth < 768 ? 32 + 40 : 64 + 40;
+    const catCenterY = (typeof catY.get === "function" ? catY.get() : 40) + 40;
+    const dx = mousePos.x - catCenterX;
+    const dy = mousePos.y - catCenterY;
+    const maxOffset = 4;
+    const distance = Math.min(maxOffset, Math.hypot(dx, dy) * 0.015);
+    const angle = Math.atan2(dy, dx);
+    leftEyeOffset.x = Math.cos(angle) * distance;
+    leftEyeOffset.y = Math.sin(angle) * distance;
+    rightEyeOffset.x = leftEyeOffset.x;
+    rightEyeOffset.y = leftEyeOffset.y;
   }
 
-  // Very simple eyes follow mouse logic
-  const leftEyeOffset = { x: 0, y: 0 }
-  const rightEyeOffset = { x: 0, y: 0 }
-  
-  if (typeof window !== "undefined") {
-    // Calculate approximate center of the cat based on its fixed left offset and dynamic Y
-    const catCenterX = window.innerWidth < 768 ? 32 + 40 : 64 + 40 // left-8 (32px) or md:left-16 (64px) + half width (40px)
-    const catCenterY = typeof catY.get === 'function' ? catY.get() + 40 : window.innerHeight / 2
-    
-    const dx = mousePos.x - catCenterX
-    const dy = mousePos.y - catCenterY
-    const maxOffset = 4 // Maximum pupil movement radius
-    
-    // Calculate distance and map to a smaller radius to keep pupils inside eyes
-    const distance = Math.min(maxOffset, Math.sqrt(dx * dx + dy * dy) * 0.015)
-    const angle = Math.atan2(dy, dx)
-    
-    leftEyeOffset.x = Math.cos(angle) * distance
-    leftEyeOffset.y = Math.sin(angle) * distance
-    rightEyeOffset.x = leftEyeOffset.x
-    rightEyeOffset.y = leftEyeOffset.y
-  }
+  const handleClick = () => {
+    if (globalThis.window !== undefined) {
+      globalThis.window.scrollTo({ top: globalThis.window.scrollY + 500, behavior: "smooth" });
+    }
+  };
 
   return (
-    <motion.div 
+    <motion.div
       className="fixed left-8 md:left-16 z-40 flex flex-col items-center group w-20"
       style={{ y: catY }}
     >
@@ -78,7 +89,7 @@ export function PetCat() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onHoverStart={handleHover}
-        onClick={() => window.scrollTo({ top: window.scrollY + 500, behavior: 'smooth' })}
+        onClick={handleClick}
       >
         <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Cat Body */}

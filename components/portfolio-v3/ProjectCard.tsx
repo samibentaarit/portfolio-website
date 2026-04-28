@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef } from "react"
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
+import { motion, useTransform, useMotionValue, useSpring } from "framer-motion"
 import { ExternalLink } from "lucide-react"
 
 import Link from "next/link"
@@ -16,7 +16,7 @@ interface ProjectProps {
   index: number
 }
 
-export function ProjectCard({ id, title, company, period, description, logo, index }: ProjectProps) {
+export function ProjectCard({ id, title, company, period, description, logo, index }: Readonly<ProjectProps>) {
   const ref = useRef<HTMLDivElement>(null)
   
   const x = useMotionValue(0)
@@ -76,10 +76,14 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
               <p className="text-sm text-primary/80 font-mono">{company} • {period}</p>
             </div>
           </div>
-          <Link href={id ? `/projects/${id}` : "#"} passHref>
-            <motion.a className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-white text-muted-foreground transition-colors" whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-              <ExternalLink size={20} />
-            </motion.a>
+          <Link href={id ? `/projects/${id}` : "#"} passHref legacyBehavior>
+            {/* eslint-disable-next-line react/jsx-no-undef */}
+            <a className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-white text-muted-foreground transition-colors">
+              <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} style={{ display: 'flex' }}>
+                {/* eslint-disable-next-line react/jsx-no-undef */}
+                <ExternalLink size={20} />
+              </motion.span>
+            </a>
           </Link>
         </div>
 
