@@ -68,7 +68,7 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
       />
 
       <div style={{ transform: "translateZ(50px)" }} className="relative z-10 flex flex-col gap-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between">
           <div className="flex items-center gap-4">
             <img src={logo || "/placeholder.svg"} alt={company} className="h-12 w-12 rounded-full object-cover shadow-xl grayscale filter hover:grayscale-0 transition duration-500" />
             <div>
@@ -79,10 +79,11 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
           <Link href={id ? `/projects/${id}` : "/projects/"} passHref legacyBehavior>
             <a
               href={id ? `/projects/${id}` : "/projects/"}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-primary hover:text-white text-muted-foreground transition-colors"
+              className="flex items-center justify-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-white/10 hover:bg-primary hover:text-black text-white transition-colors group/link"
             >
+              <span className="text-sm font-bold whitespace-nowrap">View Details</span>
               <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} style={{ display: 'flex' }}>
-                <ExternalLink size={20} />
+                <ExternalLink size={18} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
               </motion.span>
             </a>
           </Link>

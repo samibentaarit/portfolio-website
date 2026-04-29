@@ -1,15 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export const CustomCursor = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { damping: 28, stiffness: 500, mass: 2 };
+  const borderConfig = { damping: 40, stiffness: 600, mass: 0.5 };
+  
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
+  const borderX = useSpring(mouseX, borderConfig);
+  const borderY = useSpring(mouseY, borderConfig);
+
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -26,36 +37,42 @@ export const CustomCursor = () => {
       }
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [mouseX, mouseY]);
 
   return (
     <>
       <motion.div
         className="fixed top-0 left-0 w-4 h-4 bg-primary rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
         animate={{
-          x: position.x - 8,
-          y: position.y - 8,
           scale: isHovered ? 2.5 : 1,
           opacity: isHovered ? 0.5 : 1,
         }}
-        transition={{ type: "spring", stiffness: 500, damping: 28, mass: 2 }}
       />
       <motion.div
         className="fixed top-0 left-0 w-10 h-10 border border-primary rounded-full pointer-events-none z-[9998] mix-blend-difference"
+        style={{
+          x: borderX,
+          y: borderY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
         animate={{
-          x: position.x - 20,
-          y: position.y - 20,
           scale: isHovered ? 1.5 : 1,
           opacity: isHovered ? 0 : 0.5,
         }}
-        transition={{ type: "spring", stiffness: 250, damping: 20, mass: 1 }}
       />
     </>
   );

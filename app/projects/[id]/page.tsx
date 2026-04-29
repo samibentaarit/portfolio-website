@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState, use } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useEffect, useRef, use } from "react"
+import { motion, useScroll, useTransform, useMotionValue } from "framer-motion"
 import Link from "next/link"
 import { ArrowLeft, ExternalLink, Github } from "lucide-react"
 
@@ -75,23 +75,40 @@ const PROJECTS_DB: Record<string, any> = {
   }
 }
 
+const PROJECTS_LIST = [
+  "hotel-management",
+  "school-management",
+  "pablo-card-game",
+  "roam-maze",
+  "bus-schedule-management",
+  "version-management"
+]
+
 export default function ProjectDetailV3({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params)
   const projectId = resolvedParams.id
   const project = PROJECTS_DB[projectId]
+  
+  const currentIndex = PROJECTS_LIST.indexOf(projectId)
+  const prevProject = currentIndex > 0 ? PROJECTS_LIST[currentIndex - 1] : null
+  const nextProject = currentIndex >= 0 && currentIndex < PROJECTS_LIST.length - 1 ? PROJECTS_LIST[currentIndex + 1] : null
 
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
   const opacityY = useTransform(scrollYProgress, [0, 0.3], [1, 0])
   const scaleY = useTransform(scrollYProgress, [0, 0.3], [1, 0.95])
 
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY })
-    window.addEventListener("mousemove", handleMouseMove)
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+    }
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
     return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+  }, [mouseX, mouseY])
 
   if (!project) {
     return (
@@ -110,8 +127,13 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
 
       {/* Dynamic glow background following cursor */}
       <motion.div 
-        className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_800px_at_var(--mouse-x)_var(--mouse-y),rgba(16,185,129,0.1),transparent_80%)] opacity-50"
-        style={{ ["--mouse-x" as any]: `${mousePos.x}px`, ["--mouse-y" as any]: `${mousePos.y}px` }}
+        className="pointer-events-none fixed inset-0 z-0 opacity-50"
+        style={{
+          background: useTransform(
+            [mouseX, mouseY],
+            ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(16,185,129,0.1), transparent 80%)`
+          )
+        }}
       />
       
       {/* Animated grid overlay */}
@@ -197,38 +219,52 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
             viewport={{ once: true, margin: "-50px" }}
             className="md:col-span-1"
           >
-            <div className="sticky top-32 p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl">
-              <h3 className="text-2xl font-bold mb-6 border-b border-white/10 pb-4">Tech Stack</h3>
-              <ul className="space-y-4 font-mono text-sm mb-10">
-                {project.tech.map((t: string) => (
-                  <li key={t} className="flex items-center text-gray-300">
-                    <span className="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse" />
-                    {t}
-                  </li>
+            <div className="sticky top-32 p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl">
+              <h3 className="text-2xl font-bold mb-6 tracking-widest uppercase">Tech Stack</h3>
+              <div className="flex flex-col gap-4">
+                {project.tech.map((tech: string) => (
+                  <div key={tech} className="flex justify-between items-center text-gray-300 font-mono">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span className="flex-1 ml-4">{tech}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
 
-              <h3 className="text-2xl font-bold mb-6 border-b border-white/10 pb-4">Links</h3>
-              <div className="space-y-4">
-                <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center p-4 rounded-xl bg-white/5 hover:bg-emerald-400/20 hover:text-emerald-300 transition-colors border border-transparent hover:border-emerald-400/30 group">
-                  <ExternalLink size={20} className="mr-4 group-hover:scale-110 transition-transform" /> 
-                  <span className="font-bold">Live Demo</span>
+              <div className="mt-12 space-y-4">
+                <a href={project.live} target="_blank" rel="noopener noreferrer" className="block text-center px-6 py-4 bg-emerald-400 text-black hover:bg-emerald-300 rounded-xl font-bold transition-colors">
+                  <ExternalLink className="inline-block mr-2" size={18} /> Live Preview
                 </a>
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center p-4 rounded-xl bg-white/5 hover:bg-emerald-400/20 hover:text-emerald-300 transition-colors border border-transparent hover:border-emerald-400/30 group">
-                  <Github size={20} className="mr-4 group-hover:scale-110 transition-transform" /> 
-                  <span className="font-bold">Source Code</span>
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="block text-center px-6 py-4 bg-transparent border border-white/20 hover:border-white/50 text-white rounded-xl transition-colors">
+                  <Github className="inline-block mr-2" size={18} /> Source Code
                 </a>
               </div>
             </div>
           </motion.div>
-
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-white/10 mt-20 text-center text-gray-500 font-mono text-sm relative z-10 pointer-events-auto">
-        SAMI BENTAARIT <span className="text-emerald-400 mx-2">●</span> {project.title}
-      </footer>
+      {/* Project Navigation Footer */}
+      <section className="relative z-10 py-16 px-6 max-w-6xl mx-auto border-t border-white/10 flex justify-between items-center z-50 pointer-events-auto">
+        {prevProject ? (
+          <Link href={`/projects/${prevProject}`} className="group hover:text-emerald-400 transition-colors">
+            <div className="text-sm text-gray-500 mb-2 font-mono uppercase tracking-wider">Previous</div>
+            <div className="text-xl md:text-3xl font-bold flex items-center gap-3">
+              <ArrowLeft className="group-hover:-translate-x-2 transition-transform" />
+              {PROJECTS_DB[prevProject].title}
+            </div>
+          </Link>
+        ) : <div />}
+
+        {nextProject ? (
+          <Link href={`/projects/${nextProject}`} className="group hover:text-emerald-400 transition-colors text-right">
+            <div className="text-sm text-gray-500 mb-2 font-mono uppercase tracking-wider">Next</div>
+            <div className="text-xl md:text-3xl font-bold flex items-center justify-end gap-3">
+              {PROJECTS_DB[nextProject].title}
+              <ArrowLeft className="group-hover:translate-x-2 transition-transform rotate-180" />
+            </div>
+          </Link>
+        ) : <div />}
+      </section>
     </div>
   )
 }
