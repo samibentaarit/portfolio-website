@@ -5,12 +5,12 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 
 const PHRASES = [
   "Meow! Let's deploy this!",
-  "Hi, I'm Huriya 🐾",
+  "Hi, I'm Houriya 🐾",
   "I push to prod… carefully 😼",
   "99 bugs in the code, I caught one!",
   "Purr-gramming is my passion.",
   "I nap… then I debug.",
-  "Need a dev? Huriya approves Sami.",
+  "Need a dev? Houriya approves Sami.",
   "I write clean code, unlike my fur.",
   "Git commit -m 'meow fix'",
   "I chase bugs faster than QA.",

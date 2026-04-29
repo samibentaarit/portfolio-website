@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { useScroll, transform, motion, useTransform } from "framer-motion"
+import { useScroll, motion, useTransform } from "framer-motion"
 
 interface ParallaxTextProps {
   children: string
