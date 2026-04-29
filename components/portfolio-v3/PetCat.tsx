@@ -18,7 +18,7 @@ const PHRASES = [
   "Frontend? Backend? I sit on both.",
   "If it works, I was here 🐾",
   "Refactoring? I call it grooming.",
-  "I don’t crash… I just nap mid-process."
+  "I don`t crash… I just nap mid-process."
 ];
 
 export function PetCat() {
