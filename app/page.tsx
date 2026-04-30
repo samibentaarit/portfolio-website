@@ -16,6 +16,13 @@ const IN_VIEW_VARIANTS = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.33, 1, 0.68, 1] } },
 }
 
+const PERSONAS = [
+  { id: "professional", label: "professional", img: "/sami.png", desc: "// STATUS: Ready for production. Code reviewed." },
+  { id: "sport", label: "sport", img: "/sport.jpg", desc: "// STATUS: Compiling outdoors. Heart rate at 160bpm." },
+  { id: "casual", label: "casual", img: "/casual.jpg", desc: "// STATUS: AFK. Coffee mode engaged." },
+  { id: "focus", label: "focus", img: "/focus.jpg", desc: "// STATUS: In the zone. Do not disturb." },
+]
+
 export default function PortfolioV3() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
@@ -25,7 +32,33 @@ export default function PortfolioV3() {
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
-  const [isGlitching, setIsGlitching] = useState(false)
+  const [persona, setPersona] = useState("professional")
+
+  useEffect(() => {
+    // Load persisted state
+    const saved = localStorage.getItem("portfolio-persona")
+    if (saved && PERSONAS.some(p => p.id === saved)) {
+      setPersona(saved)
+    }
+
+    // Keyboard shortcuts 1-4
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const num = parseInt(e.key)
+      if (num >= 1 && num <= PERSONAS.length) {
+        const pId = PERSONAS[num - 1].id
+        setPersona(pId)
+        localStorage.setItem("portfolio-persona", pId)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
+  const handlePersonaChange = (id: string) => {
+    setPersona(id)
+    localStorage.setItem("portfolio-persona", id)
+  }
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -170,7 +203,6 @@ export default function PortfolioV3() {
                 <GlitchText 
                   text="DIGITAL" 
                   className="text-5xl md:text-7xl lg:text-[6.5rem] font-black tracking-tighter leading-none text-emerald-400 block" 
-                  onGlitchChange={setIsGlitching}
                 />
               </motion.div>
             </div>
@@ -206,14 +238,48 @@ export default function PortfolioV3() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="flex relative h-[400px] lg:h-[600px] w-full mt-10 lg:mt-0 order-first lg:order-last justify-center items-center"
           >
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-emerald-500/20 mix-blend-overlay rounded-3xl blur-3xl rounded-tr-[100px] rounded-bl-[100px] animate-[pulse_6s_ease-in-out_infinite]" />
-            <img
-              src={isGlitching ? "/sami2.jpg" : "/sami.png"}
-              alt="Sami Ben Taarit"
-              className={`absolute inset-0 w-full h-full object-cover filter grayscale transition-all duration-1200 z-10 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] rounded-2xl ${
-                isGlitching ? "brightness-125 scale-[1.02]" : "hover:grayscale-0 hover:scale-[1.01]"
-              }`}
-            />
+            {/* Soft backdrop glow */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-emerald-500/20 mix-blend-overlay rounded-3xl blur-3xl opacity-50" />
+            
+            {/* Image Container */}
+            <div className="absolute inset-0 rounded-2xl overflow-hidden [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={persona}
+                  src={PERSONAS.find(p => p.id === persona)?.img}
+                  alt={`Sami's ${persona} persona`}
+                  initial={{ opacity: 0, scale: 1.02, filter: "blur(2px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, scale: 0.98, filter: "blur(2px)" }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-300"
+                />
+              </AnimatePresence>
+            </div>
+
+            {/* Persona Switcher Terminal */}
+            <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-md rounded-xl p-3 md:p-4 border border-white/10 flex flex-col gap-2 md:gap-3 z-30 shadow-2xl">
+              <div className="flex gap-2 mb-1">
+                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+              </div>
+              <div className="flex flex-wrap gap-2 font-mono text-[10px] md:text-sm">
+                {PERSONAS.map((p, i) => (
+                  <button 
+                    key={p.id}
+                    onClick={() => handlePersonaChange(p.id)}
+                    className={`px-2 py-1 rounded transition-colors ${persona === p.id ? 'bg-primary/20 text-primary' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}
+                  >
+                    <span className="hidden md:inline mr-1 opacity-50">{i+1}</span>./me --mode={p.label}
+                  </button>
+                ))}
+              </div>
+              <div className="text-gray-300 font-mono text-[10px] md:text-xs mt-1 border-t border-white/10 pt-2 text-primary">
+                {PERSONAS.find(p => p.id === persona)?.desc}
+              </div>
+            </div>
+
             {/* Geometric accents */}
             <div className="absolute -top-6 -right-6 w-16 h-16 lg:w-24 lg:h-24 border-t-2 border-r-2 border-primary/50 text-white z-20" />
             <div className="absolute -bottom-6 -left-6 w-16 h-16 lg:w-24 lg:h-24 border-b-2 border-l-2 border-emerald-400/50 text-white z-20" />
@@ -233,6 +299,78 @@ export default function PortfolioV3() {
       <section className="relative z-10 py-20 overflow-hidden bg-white/5 border-y border-white/10 backdrop-blur-sm -skew-y-3 shadow-[0_0_50px_rgba(6,182,212,0.1)]">
         <ParallaxText baseVelocity={5}>NEXT.JS - SPRING BOOT - AZURE - DEVOPS -</ParallaxText>
         <ParallaxText baseVelocity={-5}>FULL STACK - ARCHITECTURE - CLOUD - AI -</ParallaxText>
+      </section>
+
+      {/* Outside the IDE Section */}
+      <section className="relative z-10 py-32 px-6" id="outside-ide">
+        <div className="max-w-6xl mx-auto">
+          <motion.div 
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={IN_VIEW_VARIANTS}
+            className="mb-20"
+          >
+            <h2 className="text-5xl md:text-7xl font-black mb-4"><span className="text-primary">.</span>OUTSIDE THE IDE</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-transparent" />
+            <p className="text-gray-400 text-lg md:text-xl font-light mt-6 max-w-2xl">
+              Software engineering happens behind a screen, but consistency is built away from it. Finding balance, discipline, and inspiration in life.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: -2 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -2 }}
+              whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
+            >
+              <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
+                <img src="/sport.jpg" alt="Discipline" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+              </div>
+              <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
+                // system.uptime()
+              </div>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: 3 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 3 }}
+              whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
+            >
+              <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
+                <img src="/casual.jpg" alt="Balance" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+              </div>
+              <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
+                // memory.recharge()
+              </div>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: -1 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -1 }}
+              whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
+            >
+              <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
+                <img src="/focus.jpg" alt="Focus" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+              </div>
+              <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
+                // focus.lock()
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Experience Section */}
