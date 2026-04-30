@@ -122,7 +122,7 @@ export default function PortfolioV3() {
         style={{
           background: useTransform(
             [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(6,182,212,0.1), transparent 80%)`
+            ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(6,182,212,0.15), transparent 80%)`
           )
         }}
       />
@@ -210,7 +210,7 @@ export default function PortfolioV3() {
             <img
               src={isGlitching ? "/sami2.jpg" : "/sami.png"}
               alt="Sami Ben Taarit"
-              className={`absolute inset-0 w-full h-full object-cover filter grayscale transition-all duration-1500 z-10 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] rounded-2xl ${
+              className={`absolute inset-0 w-full h-full object-cover filter grayscale transition-all duration-1200 z-10 [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] rounded-2xl ${
                 isGlitching ? "brightness-125 scale-[1.02]" : "hover:grayscale-0 hover:scale-[1.01]"
               }`}
             />

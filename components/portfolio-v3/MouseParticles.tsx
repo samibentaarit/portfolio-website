@@ -17,7 +17,7 @@ export function MouseParticles() {
     const mouse = {
       x: window.innerWidth / 2,
       y: window.innerHeight / 2,
-      radius: 100,
+      radius: 120,
     }
 
     const resize = () => {
@@ -47,17 +47,22 @@ export function MouseParticles() {
         this.y = y
         this.baseX = x
         this.baseY = y
-        this.size = Math.random() * 2 + 1
+        this.size = Math.random() * 3 + 1
         this.density = Math.random() * 30 + 1
       }
 
       draw() {
         if (!ctx) return
-        ctx.fillStyle = "rgba(6, 182, 212, 0.5)" // Primary color with opacity
+        // Add glow by using shadow properties and a slightly stronger alpha
+        ctx.save()
+        ctx.fillStyle = "rgba(6, 182, 212, 0.8)"
+        ctx.shadowColor = "rgba(6, 182, 212, 0.9)"
+        ctx.shadowBlur = Math.max(8, this.size * 6) // larger blur for stronger glow
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.closePath()
         ctx.fill()
+        ctx.restore()
       }
 
       update() {

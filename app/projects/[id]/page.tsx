@@ -131,7 +131,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
         style={{
           background: useTransform(
             [mouseX, mouseY],
-            ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(16,185,129,0.1), transparent 80%)`
+            ([x, y]) => `radial-gradient(800px circle at ${x}px ${y}px, rgba(6,182,212,0.15), transparent 80%)`
           )
         }}
       />
