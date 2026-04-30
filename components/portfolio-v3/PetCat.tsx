@@ -69,10 +69,11 @@ export function PetCat() {
     rightEyeOffset.y = leftEyeOffset.y;
   }
 
-  const handleClick = () => {
-    if (globalThis.window !== undefined) {
-      globalThis.window.scrollTo({ top: globalThis.window.scrollY + 500, behavior: "smooth" });
-    }
+  const handleClick = (e?: React.MouseEvent | React.TouchEvent) => {
+    // Prevent default scrolling on touch and just trigger phrase change
+    if (e && typeof (e as any).preventDefault === "function") (e as any).preventDefault()
+    const nextPhase = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+    setCurrentPhrase(nextPhase);
   };
 
   return (
@@ -85,11 +86,12 @@ export function PetCat() {
         <div className="absolute -bottom-1 left-8 w-3 h-3 bg-white rotate-45" />
       </div>
       <motion.div
-        className="cursor-pointer pointer-events-auto"
+        className="cursor-pointer pointer-events-auto touch-none"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onHoverStart={handleHover}
         onClick={handleClick}
+        onTouchStart={(e) => handleClick(e)}
       >
         <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Cat Body */}

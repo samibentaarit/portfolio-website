@@ -13,7 +13,7 @@ import { ArrowRight, ChevronDown, Github, Linkedin, Mail, ExternalLink } from "l
 
 const IN_VIEW_VARIANTS = {
   hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.33, 1, 0.68, 1] } },
 }
 
 export default function PortfolioV3() {

@@ -23,6 +23,14 @@ export const CustomCursor = () => {
       mouseY.set(e.clientY);
     };
 
+    const handleTouch = (e: TouchEvent) => {
+      const t = e.touches && e.touches[0] ? e.touches[0] : (e.changedTouches && e.changedTouches[0]);
+      if (t) {
+        mouseX.set(t.clientX);
+        mouseY.set(t.clientY);
+      }
+    };
+
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
@@ -38,10 +46,14 @@ export const CustomCursor = () => {
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("touchstart", handleTouch, { passive: true });
+    window.addEventListener("touchmove", handleTouch, { passive: true });
     window.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchstart", handleTouch);
+      window.removeEventListener("touchmove", handleTouch);
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, [mouseX, mouseY]);
