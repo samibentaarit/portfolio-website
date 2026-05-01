@@ -27,6 +27,7 @@ export function PetCat() {
   const [currentPhrase, setCurrentPhrase] = useState(PHRASES[0]);
   const [catYMax, setCatYMax] = useState(600);
   const [isClient, setIsClient] = useState(false);
+  const [isMobileHovered, setIsMobileHovered] = useState(false);
 
   // Only run window-dependent code on client
   useEffect(() => {
@@ -43,8 +44,19 @@ export function PetCat() {
     if (globalThis.window === undefined) return;
     setMousePos({ x: globalThis.window.innerWidth / 2, y: globalThis.window.innerHeight / 2 });
     const mm = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
+    const mt = (e: TouchEvent) => {
+      if (e.touches && e.touches[0]) {
+        setMousePos({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+      }
+    };
     globalThis.window.addEventListener("mousemove", mm);
-    return () => globalThis.window.removeEventListener("mousemove", mm);
+    globalThis.window.addEventListener("touchmove", mt, { passive: true });
+    globalThis.window.addEventListener("touchstart", mt, { passive: true });
+    return () => {
+      globalThis.window.removeEventListener("mousemove", mm);
+      globalThis.window.removeEventListener("touchmove", mt);
+      globalThis.window.removeEventListener("touchstart", mt);
+    }
   }, []);
 
   const handleHover = () => {
@@ -55,9 +67,12 @@ export function PetCat() {
   // Eyes follow mouse only on client
   const leftEyeOffset = { x: 0, y: 0 };
   const rightEyeOffset = { x: 0, y: 0 };
+  let catCenterX = 0;
+  let catCenterY = 0;
+  
   if (isClient && globalThis.window !== undefined) {
-    const catCenterX = globalThis.window.innerWidth < 768 ? 32 + 40 : 64 + 40;
-    const catCenterY = (typeof catY.get === "function" ? catY.get() : 40) + 40;
+    catCenterX = globalThis.window.innerWidth < 768 ? 32 + 40 : 64 + 40;
+    catCenterY = (typeof catY.get === "function" ? catY.get() : 40) + 40;
     const dx = mousePos.x - catCenterX;
     const dy = mousePos.y - catCenterY;
     const maxOffset = 4;
@@ -69,6 +84,23 @@ export function PetCat() {
     rightEyeOffset.y = leftEyeOffset.y;
   }
 
+  // Check if cursor is near the cat for mobile hover
+  useEffect(() => {
+    if (isClient && globalThis.window !== undefined) {
+      const dx = mousePos.x - catCenterX;
+      const dy = mousePos.y - catCenterY;
+      const distance = Math.hypot(dx, dy);
+      if (distance < 50) {
+        if (!isMobileHovered) {
+          setIsMobileHovered(true);
+          handleHover();
+        }
+      } else {
+        setIsMobileHovered(false);
+      }
+    }
+  }, [mousePos, catCenterX, catCenterY, isClient]);
+
   const handleClick = (e?: React.MouseEvent | React.TouchEvent) => {
     // Prevent default scrolling on touch and just trigger phrase change
     if (e && typeof (e as any).preventDefault === "function") (e as any).preventDefault()
@@ -78,10 +110,10 @@ export function PetCat() {
 
   return (
     <motion.div
-      className="fixed left-8 md:left-16 z-40 flex flex-col items-center group w-20"
+      className="fixed left-8 md:left-16 z-40 flex flex-col items-center w-20 group"
       style={{ y: catY }}
     >
-      <div className="absolute bottom-full left-0 mb-2 text-xs font-mono font-bold text-black bg-white px-4 py-2 rounded-2xl opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 whitespace-nowrap pointer-events-none drop-shadow-md origin-bottom-left">
+      <div className={`absolute bottom-full left-0 mb-2 text-xs font-mono font-bold text-black bg-white px-4 py-2 rounded-2xl transition-all transform origin-bottom-left whitespace-nowrap pointer-events-none drop-shadow-md ${isMobileHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0"}`}>
         {currentPhrase}
         <div className="absolute -bottom-1 left-8 w-3 h-3 bg-white rotate-45" />
       </div>

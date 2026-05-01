@@ -10,9 +10,8 @@ const _inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
 const _jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: '--font-jetbrains-mono' });
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
+  title: 'Sami Bentaarit - Portfolio',
+  description: 'My Portfolio Website',
   icons: {
     icon: [
       {

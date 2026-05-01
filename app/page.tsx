@@ -169,6 +169,10 @@ export default function PortfolioV3() {
         className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 pt-20 pb-32"
         style={{ opacity: opacityY, scale: scaleY }}
       >
+        <div className="absolute top-8 left-8 z-50 font-black text-2xl tracking-tighter mix-blend-difference text-white">
+          SB<span className="text-primary">.</span>
+        </div>
+        
         <div className="absolute top-8 right-8 flex gap-4 z-50">
           <a href="https://github.com/samibentaarit" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Github /></a>
           <a href="https://www.linkedin.com/in/samy-bentaarit-4a4016222/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Linkedin /></a>
@@ -243,7 +247,7 @@ export default function PortfolioV3() {
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-emerald-500/20 mix-blend-overlay rounded-3xl blur-3xl opacity-50" />
             
             {/* Image Container */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]">
+            <div className="absolute inset-0 rounded-2xl overflow-hidden [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] group/img cursor-pointer" tabIndex={0}>
               <AnimatePresence mode="wait">
                 <motion.img
                   key={persona}
@@ -253,9 +257,10 @@ export default function PortfolioV3() {
                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   exit={{ opacity: 0, scale: 0.98, filter: "blur(2px)" }}
                   transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute inset-0 w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-300"
+                  className="absolute inset-0 w-full h-full object-cover filter grayscale group-hover/img:grayscale-0 group-active/img:grayscale-0 group-focus/img:grayscale-0 transition-all duration-500"
                 />
               </AnimatePresence>
+              <div className="absolute inset-0 mix-blend-color bg-gradient-to-tr from-gray-500/20 to-emerald-500/20 transition-opacity duration-500 opacity-100 group-hover/img:opacity-0 group-active/img:opacity-0 group-focus/img:opacity-0 pointer-events-none" />
             </div>
 
             {/* Persona Switcher Terminal */}
