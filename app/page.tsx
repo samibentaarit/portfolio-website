@@ -18,8 +18,8 @@ const IN_VIEW_VARIANTS = {
 
 const PERSONAS = [
   { id: "professional", label: "professional", img: "/sami.png", desc: "// STATUS: Ready for production. Code reviewed." },
-  { id: "sport", label: "sport", img: "/sport.jpg", desc: "// STATUS: Compiling outdoors. Heart rate at 160bpm." },
-  { id: "casual", label: "casual", img: "/casual.jpg", desc: "// STATUS: AFK. Coffee mode engaged." },
+  { id: "sport", label: "sport", img: "/sami_sport.jpg", desc: "// STATUS: Compiling outdoors. Heart rate at 160bpm." },
+  { id: "casual", label: "casual", img: "/sami_casual.jpg", desc: "// STATUS: AFK. Coffee mode engaged." },
   { id: "focus", label: "focus", img: "/focus.jpg", desc: "// STATUS: In the zone. Do not disturb." },
 ]
 
