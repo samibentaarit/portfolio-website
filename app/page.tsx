@@ -18,9 +18,10 @@ const IN_VIEW_VARIANTS = {
 
 const PERSONAS = [
   { id: "professional", label: "professional", img: "/sami.png", desc: "// STATUS: Ready for production. Code reviewed." },
-  { id: "sport", label: "sport", img: "/sami_sport.jpg", desc: "// STATUS: Compiling outdoors. Heart rate at 160bpm." },
+  { id: "sport", label: "sport", img: "/sami_sport.png", desc: "// STATUS: Compiling outdoors. CPU at 85%." },
   { id: "casual", label: "casual", img: "/sami_casual.jpg", desc: "// STATUS: AFK. Coffee mode engaged." },
-  { id: "focus", label: "focus", img: "/focus.jpg", desc: "// STATUS: In the zone. Do not disturb." },
+  { id: "nurture", label: "nurture", img: "/sami_kittens.jpg", desc: "// STATUS: System overloaded by cuteness. 3 new background processes detected." 
+}
 ]
 
 export default function PortfolioV3() {
@@ -329,7 +330,7 @@ export default function PortfolioV3() {
               className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/sport.jpg" alt="Discipline" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+                <img src="/sami_jbal.jpeg" alt="Discipline" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // system.uptime()
@@ -346,7 +347,7 @@ export default function PortfolioV3() {
               className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/casual.jpg" alt="Balance" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+                <img src="/sami_hani.png" alt="Balance" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // memory.recharge()
@@ -363,7 +364,7 @@ export default function PortfolioV3() {
               className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/focus.jpg" alt="Focus" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+                <img src="/medal.png" alt="Focus" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // focus.lock()
