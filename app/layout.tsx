@@ -15,19 +15,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/logo_SB.svg',
+        url: '/logos/logo_SB.svg',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/logo_SB.svg',
+        url: '/logos/logo_SB.svg',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/logo_SB.svg',
+        url: '/logos/logo_SB.svg',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/logo_SB.svg',
+    apple: '/logos/logo_SB.svg',
   },
 }
 

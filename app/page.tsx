@@ -17,7 +17,7 @@ const IN_VIEW_VARIANTS: Variants = {
 }
 
 const PERSONAS = [
-  { id: "professional", label: "professional", img: "/sami.webp", desc: "// STATUS: Ready for production. Code reviewed." },
+  { id: "professional", label: "professional", img: "/images/sami.webp", desc: "// STATUS: Ready for production. Code reviewed." },
   { id: "sport", label: "sport", img: "/sami_sport.webp", desc: "// STATUS: Compiling outdoors. CPU at 85%." },
   { id: "casual", label: "casual", img: "/sami_casual.webp", desc: "// STATUS: AFK. Coffee mode engaged." },
   { id: "nurture", label: "nurture", img: "/sami_kittens.webp", desc: "// STATUS: System overloaded by cuteness. 3 new background processes detected." 
@@ -75,7 +75,7 @@ export default function PortfolioV3() {
       id: "hotel-management",
       title: "Hotel Management Web App",
       company: "Tunisie Booking",
-      logo: "/images/image.png",
+      logo: "/logos/tunisiebooking.png",
       period: "March - September 2025",
       description: "End Of Engineering Studies: Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
     },
@@ -83,7 +83,7 @@ export default function PortfolioV3() {
       id: "school-management",
       title: "School Management Web Application (SaaS)",
       company: "Personal Project",
-      logo: "/placeholder-logo.png",
+      logo: "/logos/school-management.png",
       period: "2026",
       description: "Design and development of a full-featured multi-tenant school management platform covering attendance, timetables, work hours, grades, events, and enrollments. Engineered a secure, scalable architecture with role-based access (RBAC) and real-time communication via WebSockets using Laravel 12, Next.js 16, and PostgreSQL hosted on Azure and Neon.",
     },
@@ -99,7 +99,7 @@ export default function PortfolioV3() {
       id: "roam-maze",
       title: "ROAM MAZE",
       company: "Summer Internship",
-      logo: "/roam-maze-mobile-app-logo.png",
+      logo: "/logos/roam-maze-mobile-app-logo.png",
       period: "May - June 2024",
       description: "Web and mobile application to facilitate communication between school administration and parents. Improved communication and centralized announcements, notifications, and messaging using React, Flutter, Node.js, and MongoDB.",
     },
@@ -107,7 +107,7 @@ export default function PortfolioV3() {
       id: "bus-schedule-management",
       title: "Bus Schedule Management",
       company: "Les Nouvelles Générations",
-      logo: "/private-school-logo-blue.jpg",
+      logo: "/logos/private-school-logo-blue.jpg",
       period: "May - June 2023",
       description: "Digitized bus scheduling and route management for school transportation using Spring Boot, Angular, and MySQL.",
     },
@@ -115,7 +115,7 @@ export default function PortfolioV3() {
       id: "version-management",
       title: "Project Versioning Management",
       company: "BFI Groupe",
-      logo: "/bfi-group-corporate-logo.svg",
+      logo: "/logos/bfi-group-corporate-logo.svg",
       period: "January - June 2022",
       description: "Bachelor's Final Project: Centralized project version tracking and artifact management system integrating GitLab and Artifactory APIs using Angular and Spring Boot.",
     }
@@ -302,7 +302,7 @@ export default function PortfolioV3() {
       </motion.section>
 
       {/* Marquee Section */}
-      <section className="relative z-10 py-23 overflow-hidden bg-white/5 border-y border-white/10 backdrop-blur-sm -skew-y-3 shadow-[0_0_50px_rgba(6,182,212,0.1)]">
+      <section className="relative z-10 py-12 md:py-18 lg:py-23 overflow-hidden bg-white/5 border-y border-white/10 backdrop-blur-sm -skew-y-3 shadow-[0_0_50px_rgba(6,182,212,0.1)]">
         <ParallaxText baseVelocity={5}>MOBILE/WEB DEVELOPER - DEVOPS - DATABASE</ParallaxText>
         <ParallaxText baseVelocity={-5}>FULL STACK - ARCHITECTURE - CLOUD - AI -</ParallaxText>
       </section>

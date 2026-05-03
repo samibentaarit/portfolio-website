@@ -70,7 +70,7 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
       <div style={{ transform: "translateZ(50px)" }} className="relative z-10 flex flex-col gap-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between">
           <div className="flex items-center gap-4">
-            <img src={logo || "/placeholder.svg"} alt={company} className="h-12 w-12 rounded-full object-cover shadow-xl grayscale filter hover:grayscale-0 transition duration-500" />
+            <img src={logo || "/images/placeholder.svg"} alt={company} className="h-12 w-12 rounded-full object-cover shadow-xl grayscale filter hover:grayscale-0 transition duration-500" />
             <div>
               <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">{title}</h3>
               <p className="text-sm text-primary/80 font-mono">{company} • {period}</p>
