@@ -99,7 +99,7 @@ export default function PortfolioV3() {
       id: "roam-maze",
       title: "ROAM MAZE",
       company: "Summer Internship",
-      logo: "/roam-maze-mobile-app-logo.svg",
+      logo: "/roam-maze-mobile-app-logo.png",
       period: "May - June 2024",
       description: "Web and mobile application to facilitate communication between school administration and parents. Improved communication and centralized announcements, notifications, and messaging using React, Flutter, Node.js, and MongoDB.",
     },
