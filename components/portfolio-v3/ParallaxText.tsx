@@ -18,7 +18,7 @@ export function ParallaxText({ children, baseVelocity = 100 }: ParallaxTextProps
   return (
     <div ref={containerRef} className="overflow-hidden flex flex-nowrap w-full items-center m-0 whitespace-nowrap">
       <motion.div
-        className="flex whitespace-nowrap font-black uppercase text-[10vw] leading-none text-transparent"
+        className="flex whitespace-nowrap font-black uppercase text-[6vw] md:text-[5vw] leading-none text-transparent"
         style={{
           x,
           WebkitTextStroke: "2px rgba(255, 255, 255, 0.1)",

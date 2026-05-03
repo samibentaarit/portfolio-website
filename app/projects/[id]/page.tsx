@@ -49,7 +49,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Summer Internship project. Improved communication and centralized announcements, notifications, and messaging using React, Flutter, Node.js, and MongoDB.",
     tech: ["React", "Flutter", "Node.js", "MongoDB"],
     skillsAcquired: ["Mobile App Development", "Cross-Platform UI", "REST API Development", "NoSQL Database Integration"],
-    screenshots: ["/roam-maze-mobile-app-logo.jpg", "/placeholder.svg"],
+    screenshots: ["/roam-maze-mobile-app-logo.png", "/placeholder.svg"],
     live: "https://roam-maze.vercel.app",
     github: "https://github.com/samibentaarit/roam-maze",
   },
@@ -69,7 +69,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Created at BFI Groupe. A centralized project version tracking and artifact management system integrating GitLab and Artifactory APIs.",
     tech: ["Angular", "Spring Boot", "GitLab API", "Artifactory"],
     skillsAcquired: ["API Integrations", "DevOps Pipelines", "System Architecture", "Continuous Integration"],
-    screenshots: ["/bfi-group-corporate-logo.jpg", "/placeholder.svg"],
+    screenshots: ["/bfi-group-corporate-logo.svg", "/placeholder.svg"],
     live: "#",
     github: "https://github.com/samibentaarit",
   }

@@ -76,16 +76,14 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
               <p className="text-sm text-primary/80 font-mono">{company} • {period}</p>
             </div>
           </div>
-          <Link href={id ? `/projects/${id}` : "/projects/"} passHref legacyBehavior>
-            <a
-              href={id ? `/projects/${id}` : "/projects/"}
-              className="flex items-center justify-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-white/10 hover:bg-primary hover:text-black text-white transition-colors group/link"
-            >
-              <span className="text-sm font-bold whitespace-nowrap">View Details</span>
-              <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} style={{ display: 'flex' }}>
-                <ExternalLink size={18} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-              </motion.span>
-            </a>
+          <Link
+            href={id ? `/projects/${id}` : "/projects/"}
+            className="flex items-center justify-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-white/10 hover:bg-primary hover:text-black text-white transition-colors group/link"
+          >
+            <span className="text-sm font-bold whitespace-nowrap">View Details</span>
+            <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} style={{ display: 'flex' }}>
+              <ExternalLink size={18} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+            </motion.span>
           </Link>
         </div>
 

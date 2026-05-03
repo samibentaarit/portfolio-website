@@ -93,13 +93,16 @@ export function PetCat() {
       if (distance < 50) {
         if (!isMobileHovered) {
           setIsMobileHovered(true);
-          handleHover();
+          const nextPhase = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+          setCurrentPhrase(nextPhase);
         }
       } else {
-        setIsMobileHovered(false);
+        if (isMobileHovered) {
+          setIsMobileHovered(false);
+        }
       }
     }
-  }, [mousePos, catCenterX, catCenterY, isClient]);
+  }, [mousePos.x, mousePos.y, catCenterX, catCenterY, isClient, isMobileHovered]);
 
   const handleClick = (e?: React.MouseEvent | React.TouchEvent) => {
     // Prevent default scrolling on touch and just trigger phrase change

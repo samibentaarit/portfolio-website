@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform, AnimatePresence, useMotionValue } from "framer-motion"
+import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, type Variants } from "framer-motion"
 import { CustomCursor } from "@/components/portfolio-v3/CustomCursor"
 import { MagneticButton } from "@/components/portfolio-v3/MagneticButton"
 import { ProjectCard } from "@/components/portfolio-v3/ProjectCard"
@@ -11,16 +11,16 @@ import { GlitchText } from "@/components/portfolio-v3/GlitchText"
 import { PetCat } from "@/components/portfolio-v3/PetCat"
 import { ArrowRight, ChevronDown, Github, Linkedin, Mail, ExternalLink } from "lucide-react"
 
-const IN_VIEW_VARIANTS = {
+const IN_VIEW_VARIANTS: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.33, 1, 0.68, 1] } },
 }
 
 const PERSONAS = [
-  { id: "professional", label: "professional", img: "/sami.png", desc: "// STATUS: Ready for production. Code reviewed." },
-  { id: "sport", label: "sport", img: "/sami_sport.png", desc: "// STATUS: Compiling outdoors. CPU at 85%." },
-  { id: "casual", label: "casual", img: "/sami_casual.jpg", desc: "// STATUS: AFK. Coffee mode engaged." },
-  { id: "nurture", label: "nurture", img: "/sami_kittens.jpg", desc: "// STATUS: System overloaded by cuteness. 3 new background processes detected." 
+  { id: "professional", label: "professional", img: "/sami.webp", desc: "// STATUS: Ready for production. Code reviewed." },
+  { id: "sport", label: "sport", img: "/sami_sport.webp", desc: "// STATUS: Compiling outdoors. CPU at 85%." },
+  { id: "casual", label: "casual", img: "/sami_casual.webp", desc: "// STATUS: AFK. Coffee mode engaged." },
+  { id: "nurture", label: "nurture", img: "/sami_kittens.webp", desc: "// STATUS: System overloaded by cuteness. 3 new background processes detected." 
 }
 ]
 
@@ -28,7 +28,7 @@ export default function PortfolioV3() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef })
 
-  const opacityY = useTransform(scrollYProgress, [0, 0.2], [1, 0])
+  const opacityY = useTransform(scrollYProgress, [0, 1], [1, 0])
   const scaleY = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
 
   const mouseX = useMotionValue(0)
@@ -99,7 +99,7 @@ export default function PortfolioV3() {
       id: "roam-maze",
       title: "ROAM MAZE",
       company: "Summer Internship",
-      logo: "/roam-maze-mobile-app-logo.jpg",
+      logo: "/roam-maze-mobile-app-logo.svg",
       period: "May - June 2024",
       description: "Web and mobile application to facilitate communication between school administration and parents. Improved communication and centralized announcements, notifications, and messaging using React, Flutter, Node.js, and MongoDB.",
     },
@@ -115,7 +115,7 @@ export default function PortfolioV3() {
       id: "version-management",
       title: "Project Versioning Management",
       company: "BFI Groupe",
-      logo: "/bfi-group-corporate-logo.jpg",
+      logo: "/bfi-group-corporate-logo.svg",
       period: "January - June 2022",
       description: "Bachelor's Final Project: Centralized project version tracking and artifact management system integrating GitLab and Artifactory APIs using Angular and Spring Boot.",
     }
@@ -162,11 +162,11 @@ export default function PortfolioV3() {
       />
       
       {/* Animated grid overlay */}
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
 
       {/* Hero Section */}
       <motion.section 
-        className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 pt-20 pb-32"
+        className="relative z-10 flex min-h-svh flex-col items-center justify-center px-6 pt-20 pb-32"
         style={{ opacity: opacityY, scale: scaleY }}
       >
         <div className="absolute top-8 left-8 z-50 font-black text-2xl tracking-tighter mix-blend-difference text-white">
@@ -187,7 +187,7 @@ export default function PortfolioV3() {
               className="mb-6 flex items-center gap-4"
             >
               <div className="h-1 w-12 bg-primary rounded-full" />
-              <span className="font-mono text-primary uppercase tracking-widest text-sm lg:text-base">Hi, I'm Sami Ben Taarit</span>
+              <span className="font-mono text-primary uppercase tracking-widest text-lm lg:text-xl">Sami Ben Taarit — Software Engineer</span>
             </motion.div>
 
             <div className="overflow-hidden mb-2 -ml-1">
@@ -196,7 +196,7 @@ export default function PortfolioV3() {
                 animate={{ y: "0%", rotate: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
               >
-                <GlitchText text="CRAFTING" className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-none block" />
+                <GlitchText text="SOFTWARE" className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-none block" />
               </motion.div>
             </div>
             <div className="overflow-hidden mb-6 -ml-1">
@@ -206,7 +206,7 @@ export default function PortfolioV3() {
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
               >
                 <GlitchText 
-                  text="DIGITAL" 
+                  text="ENGINEER" 
                   className="text-5xl md:text-7xl lg:text-[6.5rem] font-black tracking-tighter leading-none text-emerald-400 block" 
                 />
               </motion.div>
@@ -228,8 +228,8 @@ export default function PortfolioV3() {
               className="mt-10 lg:mt-14"
             >
               <a href="#projects" className="group relative inline-block">
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary to-emerald-500 rounded-full opacity-40 group-hover:opacity-60 blur-md transition-opacity duration-300 animate-pulse"></div>
-                <MagneticButton className="relative px-8 lg:px-10 py-4 lg:py-5 bg-white text-black hover:bg-gray-100 rounded-full font-black text-base lg:text-lg flex flex-row items-center justify-center whitespace-nowrap !flex-nowrap gap-3 transition-colors shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:shadow-[0_0_60px_rgba(6,182,212,0.6)] w-auto">
+                <div className="absolute -inset-2 bg-linear-to-r from-primary to-emerald-500 rounded-full opacity-40 group-hover:opacity-60 blur-md transition-opacity duration-300 animate-pulse"></div>
+                <MagneticButton className="relative px-8 lg:px-10 py-4 lg:py-5 bg-white text-black hover:bg-gray-100 rounded-full font-black text-base lg:text-lg flex flex-row items-center justify-center whitespace-nowrap flex-nowrap! gap-3 transition-colors shadow-[0_0_40px_rgba(6,182,212,0.4)] hover:shadow-[0_0_60px_rgba(6,182,212,0.6)] w-auto">
                   <span className="shrink-0 leading-none">See My Work</span>
                   <ArrowRight size={22} className="group-hover:translate-x-1 transition-transform shrink-0" />
                 </MagneticButton>
@@ -241,13 +241,13 @@ export default function PortfolioV3() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex relative h-[400px] lg:h-[600px] w-full mt-10 lg:mt-0 order-first lg:order-last justify-center items-center"
+            className="flex relative h-150 lg:h-150 w-full mt-10 lg:mt-0 order-first lg:order-last justify-center items-center"
           >
             {/* Soft backdrop glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-emerald-500/20 mix-blend-overlay rounded-3xl blur-3xl opacity-50" />
+            <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-emerald-500/20 mix-blend-overlay rounded-3xl blur-3xl opacity-50" />
             
             {/* Image Container */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden [mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)] group/img cursor-pointer" tabIndex={0}>
+            <div className="absolute inset-0 rounded-2xl overflow-hidden mask-[linear-gradient(to_bottom,black_60%,transparent_100%)] group/img cursor-pointer" tabIndex={0}>
               <AnimatePresence mode="wait">
                 <motion.img
                   key={persona}
@@ -260,7 +260,7 @@ export default function PortfolioV3() {
                   className="absolute inset-0 w-full h-full object-cover filter grayscale group-hover/img:grayscale-0 group-active/img:grayscale-0 group-focus/img:grayscale-0 transition-all duration-500"
                 />
               </AnimatePresence>
-              <div className="absolute inset-0 mix-blend-color bg-gradient-to-tr from-gray-500/20 to-emerald-500/20 transition-opacity duration-500 opacity-100 group-hover/img:opacity-0 group-active/img:opacity-0 group-focus/img:opacity-0 pointer-events-none" />
+              <div className="absolute inset-0 mix-blend-color bg-linear-to-tr from-gray-500/20 to-emerald-500/20 transition-opacity duration-500 opacity-100 group-hover/img:opacity-0 group-active/img:opacity-0 group-focus/img:opacity-0 pointer-events-none" />
             </div>
 
             {/* Persona Switcher Terminal */}
@@ -281,7 +281,7 @@ export default function PortfolioV3() {
                   </button>
                 ))}
               </div>
-              <div className="text-gray-300 font-mono text-[10px] md:text-xs mt-1 border-t border-white/10 pt-2 text-primary">
+              <div className="text-primary font-mono text-[10px] md:text-xs mt-1 border-t border-white/10 pt-2">
                 {PERSONAS.find(p => p.id === persona)?.desc}
               </div>
             </div>
@@ -302,13 +302,13 @@ export default function PortfolioV3() {
       </motion.section>
 
       {/* Marquee Section */}
-      <section className="relative z-10 py-20 overflow-hidden bg-white/5 border-y border-white/10 backdrop-blur-sm -skew-y-3 shadow-[0_0_50px_rgba(6,182,212,0.1)]">
-        <ParallaxText baseVelocity={5}>NEXT.JS - SPRING BOOT - AZURE - DEVOPS -</ParallaxText>
+      <section className="relative z-10 py-23 overflow-hidden bg-white/5 border-y border-white/10 backdrop-blur-sm -skew-y-3 shadow-[0_0_50px_rgba(6,182,212,0.1)]">
+        <ParallaxText baseVelocity={5}>MOBILE/WEB DEVELOPER - DEVOPS - DATABASE</ParallaxText>
         <ParallaxText baseVelocity={-5}>FULL STACK - ARCHITECTURE - CLOUD - AI -</ParallaxText>
       </section>
 
       {/* Outside the IDE Section */}
-      <section className="relative z-10 py-32 px-6" id="outside-ide">
+      <section className="relative z-10 py-23 px-6" id="outside-ide">
         <div className="max-w-6xl mx-auto">
           <motion.div 
             initial="hidden"
@@ -318,7 +318,7 @@ export default function PortfolioV3() {
             className="mb-20"
           >
             <h2 className="text-5xl md:text-7xl font-black mb-4"><span className="text-primary">.</span>OUTSIDE THE IDE</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-transparent" />
+                <div className="w-24 h-1 bg-linear-to-r from-primary to-transparent" />
             <p className="text-gray-400 text-lg md:text-xl font-light mt-6 max-w-2xl">
               Software engineering happens behind a screen, but consistency is built away from it. Finding balance, discipline, and inspiration in life.
             </p>
@@ -327,15 +327,18 @@ export default function PortfolioV3() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1 */}
             <motion.div
+              tabIndex={0}
               initial={{ opacity: 0, y: 30, rotate: -2 }}
               whileInView={{ opacity: 1, y: 0, rotate: -2 }}
               whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              whileTap={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              whileFocus={{ scale: 1.05, rotate: 0, zIndex: 10 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
+              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative group cursor-pointer"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/sami_jbal.jpeg" alt="Discipline" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+                <img src="/sami_jbal.webp" alt="Discipline" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // system.uptime()
@@ -344,15 +347,18 @@ export default function PortfolioV3() {
 
             {/* Card 2 */}
             <motion.div
+              tabIndex={0}
               initial={{ opacity: 0, y: 30, rotate: 3 }}
               whileInView={{ opacity: 1, y: 0, rotate: 3 }}
               whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              whileTap={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              whileFocus={{ scale: 1.05, rotate: 0, zIndex: 10 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
+              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative group cursor-pointer"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/sami_hani.png" alt="Balance" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+                <img src="/sami_hani.webp" alt="Balance" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // memory.recharge()
@@ -361,15 +367,18 @@ export default function PortfolioV3() {
 
             {/* Card 3 */}
             <motion.div
+              tabIndex={0}
               initial={{ opacity: 0, y: 30, rotate: -1 }}
               whileInView={{ opacity: 1, y: 0, rotate: -1 }}
               whileHover={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              whileTap={{ scale: 1.05, rotate: 0, zIndex: 10 }}
+              whileFocus={{ scale: 1.05, rotate: 0, zIndex: 10 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative"
+              className="bg-white p-4 pb-12 rounded-lg shadow-xl relative group cursor-pointer"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/medal.png" alt="Focus" className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all" />
+                <img src="/medal.webp" alt="Focus" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // focus.lock()
@@ -380,7 +389,7 @@ export default function PortfolioV3() {
       </section>
 
       {/* Experience Section */}
-      <section className="relative z-10 py-32 px-6" id="projects">
+      <section className="relative z-10 py-23 px-6" id="projects">
         <div className="max-w-6xl mx-auto">
           <motion.div 
             initial="hidden"
@@ -390,7 +399,7 @@ export default function PortfolioV3() {
             className="mb-20"
           >
             <h2 className="text-5xl md:text-7xl font-black mb-4"><span className="text-primary">.</span>EXPERIENCE</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-transparent" />
+            <div className="w-24 h-1 bg-linear-to-r from-primary to-transparent" />
           </motion.div>
 
           <div className="space-y-16">
@@ -402,7 +411,7 @@ export default function PortfolioV3() {
       </section>
 
       {/* Skills Section with Categories */}
-      <section className="relative z-10 py-32 px-6 bg-black/50 backdrop-blur-2xl border-t border-white/5">
+      <section className="relative z-10 py-23 px-6 bg-black/50 backdrop-blur-2xl border-t border-white/5">
         <div className="max-w-6xl mx-auto">
           <motion.div 
             initial="hidden"
@@ -413,7 +422,7 @@ export default function PortfolioV3() {
           >
             <div>
               <h2 className="text-5xl md:text-7xl font-black mb-4"><span className="text-primary">.</span>SKILLS</h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-primary to-transparent" />
+              <div className="w-24 h-1 bg-linear-to-r from-primary to-transparent" />
             </div>
             <p className="text-gray-400 text-lg md:text-xl font-light mb-4 md:text-right">
               Tools and technologies I use to bring ideas to life. From front-end polish to scalable back-end infrastructure.
@@ -430,7 +439,7 @@ export default function PortfolioV3() {
                 transition={{ duration: 0.6, delay: gIdx * 0.1 }}
                 className="group relative p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all hover:-translate-y-2 overflow-hidden flex flex-col"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <h3 className="text-2xl font-bold mb-6 text-white group-hover:text-primary transition-colors relative z-10">
                   {group.category}
                 </h3>
@@ -452,7 +461,7 @@ export default function PortfolioV3() {
       </section>
 
       {/* Education & Languages Section */}
-      <section className="relative z-10 py-32 px-6 bg-white/5 border-y border-white/10 backdrop-blur-md">
+      <section className="relative z-10 py-23 px-6 bg-white/5 border-y border-white/10 backdrop-blur-md">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
           
           <motion.div 
@@ -464,13 +473,13 @@ export default function PortfolioV3() {
             <h3 className="text-4xl font-black mb-8">EDUCATION<span className="text-emerald-400">.</span></h3>
             <div className="space-y-8">
               <div className="relative pl-6 border-l border-white/20">
-                <div className="absolute w-3 h-3 bg-emerald-400 rounded-full -left-[6.5px] top-2" />
+                <div className="absolute w-3 h-3 bg-emerald-400 rounded-full left-[-6.5px] top-2" />
                 <h4 className="text-xl font-bold">Engineering Degree in Web Development</h4>
                 <p className="text-gray-400">ESPRIT, Tunis</p>
                 <span className="text-sm font-mono text-emerald-400/80">2022 – 2025</span>
               </div>
               <div className="relative pl-6 border-l border-white/20">
-                <div className="absolute w-3 h-3 bg-emerald-400 rounded-full -left-[6.5px] top-2" />
+                <div className="absolute w-3 h-3 bg-emerald-400 rounded-full left-[-6.5px] top-2" />
                 <h4 className="text-xl font-bold">Bachelor's Degree in IS Development</h4>
                 <p className="text-gray-400">ISET Djerba</p>
                 <span className="text-sm font-mono text-emerald-400/80">2019 – 2022</span>
@@ -498,7 +507,7 @@ export default function PortfolioV3() {
                   </div>
                   <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
                     <motion.div 
-                      className="h-full bg-gradient-to-r from-primary to-emerald-400"
+                      className="h-full bg-linear-to-r from-primary to-emerald-400"
                       initial={{ width: 0 }}
                       whileInView={{ width: `${l.percent}%` }}
                       viewport={{ once: true }}
@@ -513,7 +522,7 @@ export default function PortfolioV3() {
       </section>
 
       {/* Footer / Contact */}
-      <section className="relative z-10 py-32 px-6 min-h-[70vh] flex flex-col items-center justify-center">
+      <section className="relative z-10 py-23 px-6 min-h-[70vh] flex flex-col items-center justify-center">
         <motion.div
            initial="hidden"
            whileInView="show"
@@ -521,13 +530,14 @@ export default function PortfolioV3() {
            variants={IN_VIEW_VARIANTS}
            className="text-center"
         >
-          <h2 className="text-6xl md:text-8xl font-black mb-8">LET'S <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">TALK</span></h2>
-          <p className="text-2xl text-gray-400 font-light mb-12 max-w-2xl mx-auto">
-            Ready to create something amazing? Reach out to discuss your next project.
+          <h2 className="text-6xl md:text-8xl font-black mb-8">LET'S <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-emerald-400">TALK</span></h2>
+          <p className="font-mono text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+            <span className="text-primary">{">"}</span> ./me --mode=available<br/>
+            <span className="text-emerald-400">// STATUS: Open to work. Response time &lt; 24h.</span>
           </p>
-          <MagneticButton className="bg-white text-black px-6 md:px-12 py-5 md:py-6 rounded-full text-base md:text-xl font-bold flex flex-row items-center justify-center whitespace-nowrap !flex-nowrap gap-3 md:gap-4 mx-auto w-auto" onClick={() => window.location.href = "mailto:sbentaarit@gmail.com"}>
-            <Mail size={24} className="shrink-0" />
-            <span className="shrink-0 leading-none">sbentaarit@gmail.com</span>
+          <MagneticButton className="bg-white text-black px-6 md:px-12 py-5 md:py-6 rounded-full text-base md:text-xl font-bold flex flex-row items-center justify-center whitespace-nowrap flex-nowrap! gap-3 md:gap-4 mx-auto w-auto" onClick={() => window.location.href = "mailto:sbentaarit@gmail.com"}>
+            <Mail size={24} className="shrink-0" /> 
+            <span className="shrink-0 leading-none"> sbentaarit@gmail.com</span>
           </MagneticButton>
         </motion.div>
         
