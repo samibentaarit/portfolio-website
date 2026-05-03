@@ -18,9 +18,9 @@ const IN_VIEW_VARIANTS: Variants = {
 
 const PERSONAS = [
   { id: "professional", label: "professional", img: "/images/sami.webp", desc: "// STATUS: Ready for production. Code reviewed." },
-  { id: "sport", label: "sport", img: "/sami_sport.webp", desc: "// STATUS: Compiling outdoors. CPU at 85%." },
-  { id: "casual", label: "casual", img: "/sami_casual.webp", desc: "// STATUS: AFK. Coffee mode engaged." },
-  { id: "nurture", label: "nurture", img: "/sami_kittens.webp", desc: "// STATUS: System overloaded by cuteness. 3 new background processes detected." 
+  { id: "sport", label: "sport", img: "/images/sami_sport.webp", desc: "// STATUS: Compiling outdoors. CPU at 85%." },
+  { id: "casual", label: "casual", img: "/images/sami_casual.webp", desc: "// STATUS: AFK. Coffee mode engaged." },
+  { id: "nurture", label: "nurture", img: "/images/sami_kittens.webp", desc: "// STATUS: System overloaded by cuteness. 3 new background processes detected." 
 }
 ]
 
@@ -338,7 +338,7 @@ export default function PortfolioV3() {
               className="bg-white p-4 pb-12 rounded-lg shadow-xl relative group cursor-pointer"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/sami_jbal.webp" alt="Discipline" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
+                <img src="/images/sami_jbal.webp" alt="Discipline" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // system.uptime()
@@ -358,7 +358,7 @@ export default function PortfolioV3() {
               className="bg-white p-4 pb-12 rounded-lg shadow-xl relative group cursor-pointer"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/sami_hani.webp" alt="Balance" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
+                <img src="/images/sami_hani.webp" alt="Balance" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // memory.recharge()
@@ -378,7 +378,7 @@ export default function PortfolioV3() {
               className="bg-white p-4 pb-12 rounded-lg shadow-xl relative group cursor-pointer"
             >
               <div className="aspect-square bg-gray-200 w-full rounded overflow-hidden">
-                <img src="/medal.webp" alt="Focus" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
+                <img src="/images/medal.webp" alt="Focus" className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 group-focus:grayscale-0 group-active:grayscale-0 transition-all" />
               </div>
               <div className="absolute bottom-4 left-0 right-0 text-center font-mono text-black text-sm font-bold">
                 // focus.lock()
