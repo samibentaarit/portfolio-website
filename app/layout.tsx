@@ -11,7 +11,7 @@ const _jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: '--font-je
 
 export const metadata: Metadata = {
   title: 'Sami Bentaarit - Portfolio',
-  description: 'My Portfolio Website',
+  description: 'Sami\'s Portfolio Website',
   icons: {
     icon: [
       {
