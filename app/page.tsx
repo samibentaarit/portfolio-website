@@ -175,7 +175,7 @@ export default function PortfolioV3() {
         
         <div className="absolute top-8 right-8 flex gap-4 z-50">
           <a href="https://github.com/samibentaarit" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Github /></a>
-          <a href="https://www.linkedin.com/in/samy-bentaarit-4a4016222/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Linkedin /></a>
+          <a href="https://www.linkedin.com/in/sami-bentaarit-4a4016222/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Linkedin /></a>
         </div>
 
         <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -544,7 +544,7 @@ export default function PortfolioV3() {
         <div className="absolute bottom-8 left-0 right-0 flex justify-between px-12 text-sm text-gray-500 font-mono z-50 pointer-events-auto">
           <div>© 2026 Sami Ben Taarit</div>
           <div className="flex gap-6">
-            <a href="https://linkedin.com/in/samy-bentaarit" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase tooltip-trigger">LinkedIn</a>
+            <a href="https://linkedin.com/in/sami-bentaarit-4a4016222" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase tooltip-trigger">LinkedIn</a>
             <a href="https://github.com/samibentaarit" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase tooltip-trigger">GitHub</a>
           </div>
         </div>
