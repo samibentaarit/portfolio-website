@@ -72,14 +72,6 @@ export default function PortfolioV3() {
 
   const experience = [
     {
-      id: "hotel-management",
-      title: "Hotel Management Web App",
-      company: "Tunisie Booking",
-      logo: "/logos/tunisiebooking.png",
-      period: "March - September 2025",
-      description: "End Of Engineering Studies: Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
-    },
-    {
       id: "school-management",
       title: "School Management Web Application (SaaS)",
       company: "Personal Project",
@@ -94,6 +86,14 @@ export default function PortfolioV3() {
       logo: "/placeholder-logo.png",
       period: "2026",
       description: "Real-time multiplayer card game built with an authoritative server architecture. Implemented a deterministic game engine to guarantee rule consistency using TypeScript, React, Node.js, and Socket.IO. Handles lobbies, turns, special card effects, and round progression.",
+    },
+    {
+      id: "hotel-management",
+      title: "Hotel Management Web App",
+      company: "Tunisie Booking",
+      logo: "/logos/tunisiebooking.png",
+      period: "March - September 2025",
+      description: "End Of Engineering Studies: Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
     },
     {
       id: "roam-maze",
