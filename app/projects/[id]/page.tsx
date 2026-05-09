@@ -13,16 +13,6 @@ import { MagneticButton } from "@/components/portfolio-v3/MagneticButton"
 // We can extend this logic to fetch true data if we want.
 // For now, we mock the extended fields with the user's data to replicate the layout.
 const PROJECTS_DB: Record<string, any> = {
-  "hotel-management": {
-    title: "Hotel Management Web App",
-    shortDescription: "End Of Engineering Studies @ Tunisie Booking",
-    fullDescription: "Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
-    tech: ["Laravel", "Next.js", "MySQL", "Azure", "Vercel"],
-    skillsAcquired: ["Full-stack development", "Cloud Infrastructure (Azure)", "Role-based access control", "AI/ML Integration"],
-    screenshots: ["/images/image.png", "/placeholder-logo.png"],
-    live: "https://front-end-updated-lemon.vercel.app/",
-    github: "https://github.com/samibentaarit/hotel-management",
-  },
   "school-management": {
     title: "School Management Web Application",
     shortDescription: "Multi-Tenant SaaS Platform",
@@ -43,6 +33,16 @@ const PROJECTS_DB: Record<string, any> = {
     live: "https://pablo-sable-beta.vercel.app",
     github: "https://github.com/samibentaarit/pablo",
   },
+    "hotel-management": {
+    title: "Hotel Management Web App",
+    shortDescription: "End Of Engineering Studies @ Tunisie Booking",
+    fullDescription: "Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
+    tech: ["Laravel", "Next.js", "MySQL", "Azure", "Vercel"],
+    skillsAcquired: ["Full-stack development", "Cloud Infrastructure (Azure)", "Role-based access control", "AI/ML Integration"],
+    screenshots: ["/images/image.png", "/placeholder-logo.png"],
+    live: "https://front-end-updated-lemon.vercel.app/auth/signin",
+    github: "https://github.com/samibentaarit/hotel-management",
+  },
   "roam-maze": {
     title: "ROAM MAZE",
     shortDescription: "Web and mobile application to facilitate communication between school administration and parents.",
@@ -50,8 +50,8 @@ const PROJECTS_DB: Record<string, any> = {
     tech: ["React", "Flutter", "Node.js", "MongoDB"],
     skillsAcquired: ["Mobile App Development", "Cross-Platform UI", "REST API Development", "NoSQL Database Integration"],
     screenshots: ["/logos/roam-maze-mobile-app-logo.png", "/images/placeholder.svg"],
-    live: "https://roam-maze.vercel.app",
-    github: "https://github.com/samibentaarit/roam-maze",
+    live: "#",
+    github: "#",
   },
   "bus-schedule-management": {
     title: "Bus Schedule Management",
@@ -60,8 +60,8 @@ const PROJECTS_DB: Record<string, any> = {
     tech: ["Spring Boot", "Angular", "MySQL"],
     skillsAcquired: ["Enterprise Java", "Angular Frontend Design", "Geospatial Routing Concepts", "Relational DB Architecture"],
     screenshots: ["/logos/private-school-logo-blue.jpg", "/images/placeholder.svg"],
-    live: "https://bus-schedule.vercel.app",
-    github: "https://github.com/samibentaarit/bus-schedule",
+    live: "#",
+    github: "#",
   },
   "version-management": {
     title: "Project Versioning Management",
@@ -71,14 +71,14 @@ const PROJECTS_DB: Record<string, any> = {
     skillsAcquired: ["API Integrations", "DevOps Pipelines", "System Architecture", "Continuous Integration"],
     screenshots: ["/logos/bfi-group-corporate-logo.svg", "/images/placeholder.svg"],
     live: "#",
-    github: "https://github.com/samibentaarit",
+    github: "#",
   }
 }
 
 const PROJECTS_LIST = [
-  "hotel-management",
   "school-management",
   "pablo-card-game",
+  "hotel-management",
   "roam-maze",
   "bus-schedule-management",
   "version-management"
