@@ -126,17 +126,15 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
   }
 
   const mediaItems = [
-    ...(project.screenshots ?? []).map((src: string, index: number) => ({
+    ...(project.screenshots ?? []).map((src: string) => ({
       type: "image",
       src,
-      index,
     })),
-    ...(project.videos ?? []).map((src: string, index: number) => ({
+    ...(project.videos ?? []).map((src: string) => ({
       type: "video",
       src,
-      index,
     })),
-  ]
+  ].map((media, index) => ({ ...media, mediaIndex: index }))
 
   return (
     <div ref={containerRef} className="relative bg-black min-h-screen text-white font-sans overflow-hidden cursor-none selection:bg-emerald-400/30">
@@ -219,7 +217,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                 <h2 className="text-3xl font-bold mb-6 flex items-center"><span className="text-emerald-400 mr-4">/03</span> Showcase</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {mediaItems.map((media, index) => (
-                    <div key={`${media.type}-${media.index}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
+                    <div key={`media-${media.mediaIndex}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
                       <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm pointer-events-none">
                         <span className="font-bold text-white tracking-widest uppercase text-sm">View Layer</span>
                       </div>
@@ -228,8 +226,8 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                           className="w-full h-48 object-cover bg-black"
                           controls
                           preload="metadata"
-                          aria-label={`${project.title} demo video ${media.index + 1}`}
-                          title={`${project.title} demo video ${media.index + 1}`}
+                          aria-label={`${project.title} demo video ${media.mediaIndex + 1}`}
+                          title={`${project.title} demo video ${media.mediaIndex + 1}`}
                         >
                           <source src={media.src} type="video/mp4" />
                           Your browser does not support the video tag.
@@ -237,7 +235,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                       ) : (
                         <img
                           src={media.src}
-                          alt={`${project.title} screenshot ${media.index + 1}`}
+                          alt={`${project.title} screenshot ${media.mediaIndex + 1}`}
                           className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                       )}
