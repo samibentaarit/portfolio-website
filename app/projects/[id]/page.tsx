@@ -126,17 +126,9 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
   }
 
   const mediaItems = [
-    ...(project.screenshots ?? []).map((src: string, index: number) => ({
-      type: "image",
-      src,
-      mediaIndex: index,
-    })),
-    ...(project.videos ?? []).map((src: string, index: number) => ({
-      type: "video",
-      src,
-      mediaIndex: index,
-    })),
-  ]
+    ...(project.videos ?? []).map((src: string) => ({ type: "video", src })),
+    ...(project.screenshots ?? []).map((src: string) => ({ type: "image", src })),
+  ].map((media, index) => ({ ...media, mediaIndex: index }))
 
   return (
     <div ref={containerRef} className="relative bg-black min-h-screen text-white font-sans overflow-hidden cursor-none selection:bg-emerald-400/30">
