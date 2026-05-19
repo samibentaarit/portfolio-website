@@ -126,11 +126,15 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
   }
 
   const mediaItems = [
-    ...(project.screenshots ?? []).map((src: string) => ({ type: "image", src })),
+    ...(project.screenshots ?? []).map((src: string, index: number) => ({
+      type: "image",
+      src,
+      mediaIndex: index,
+    })),
     ...(project.videos ?? []).map((src: string, index: number) => ({
       type: "video",
       src,
-      videoIndex: index,
+      mediaIndex: index,
     })),
   ]
 
@@ -215,7 +219,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                 <h2 className="text-3xl font-bold mb-6 flex items-center"><span className="text-emerald-400 mr-4">/03</span> Showcase</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {mediaItems.map((media, index) => (
-                    <div key={`${media.type}-${index}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
+                    <div key={`${media.type}-${media.mediaIndex ?? index}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
                       <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm pointer-events-none">
                         <span className="font-bold text-white tracking-widest uppercase text-sm">View Layer</span>
                       </div>
@@ -224,7 +228,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                           className="w-full h-48 object-cover bg-black"
                           controls
                           preload="metadata"
-                          aria-label={`${project.title} demo video ${(media.videoIndex ?? 0) + 1}`}
+                          aria-label={`${project.title} demo video ${media.mediaIndex + 1}`}
                         >
                           <source src={media.src} type="video/mp4" />
                           Your browser does not support the video tag.
