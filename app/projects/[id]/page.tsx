@@ -35,7 +35,7 @@ const PROJECTS_DB: Record<string, any> = {
   },
   "hotel-management": {
     title: "Hotel Management Web App",
-    shortDescription: "End Of Engineering Studies @ Tunisie Booking",
+    shortDescription: "End Of Engineering Studies At Tunisie Booking",
     fullDescription: "Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
     tech: ["Laravel", "Next.js", "MySQL", "Azure", "Vercel"],
     skillsAcquired: ["Full-stack development", "Cloud Infrastructure (Azure)", "Role-based access control", "AI/ML Integration"],
