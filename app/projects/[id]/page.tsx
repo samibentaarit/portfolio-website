@@ -219,7 +219,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                 <h2 className="text-3xl font-bold mb-6 flex items-center"><span className="text-emerald-400 mr-4">/03</span> Showcase</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {mediaItems.map((media, index) => (
-                    <div key={`${media.type}-${media.mediaIndex ?? index}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
+                    <div key={`${media.type}-${media.mediaIndex}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
                       <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm pointer-events-none">
                         <span className="font-bold text-white tracking-widest uppercase text-sm">View Layer</span>
                       </div>
@@ -228,8 +228,8 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                           className="w-full h-48 object-cover bg-black"
                           controls
                           preload="metadata"
-                          aria-label={`${project.title} demo video ${(media.videoIndex ?? 0) + 1}`}
-                          title={`${project.title} demo video ${(media.videoIndex ?? 0) + 1}`}
+                          aria-label={`${project.title} demo video ${media.videoIndex + 1}`}
+                          title={`${project.title} demo video ${media.videoIndex + 1}`}
                         >
                           <source src={media.src} type="video/mp4" />
                           Your browser does not support the video tag.
@@ -237,7 +237,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                       ) : (
                         <img
                           src={media.src}
-                          alt={`${project.title} screenshot ${(media.imageIndex ?? 0) + 1}`}
+                          alt={`${project.title} screenshot ${media.imageIndex + 1}`}
                           className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                       )}
