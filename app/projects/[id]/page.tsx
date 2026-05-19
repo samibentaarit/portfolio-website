@@ -228,8 +228,8 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                           className="w-full h-48 object-cover bg-black"
                           controls
                           preload="metadata"
-                          aria-label={`${project.title} demo video ${media.videoIndex + 1}`}
-                          title={`${project.title} demo video ${media.videoIndex + 1}`}
+                          aria-label={`${project.title} demo video ${(media.videoIndex ?? 0) + 1}`}
+                          title={`${project.title} demo video ${(media.videoIndex ?? 0) + 1}`}
                         >
                           <source src={media.src} type="video/mp4" />
                           Your browser does not support the video tag.
@@ -237,7 +237,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                       ) : (
                         <img
                           src={media.src}
-                          alt={`${project.title} screenshot ${media.imageIndex + 1}`}
+                          alt={`${project.title} screenshot ${(media.imageIndex ?? 0) + 1}`}
                           className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                       )}
