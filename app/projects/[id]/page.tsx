@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useRef, use } from "react"
-import { motion, useScroll, useTransform, useMotionValue } from "framer-motion"
+import { useEffect, useRef, use, useState } from "react"
+import { motion, useScroll, useTransform, useMotionValue, AnimatePresence } from "framer-motion"
 import Link from "next/link"
-import { ArrowLeft, ExternalLink, Github } from "lucide-react"
+import { ArrowLeft, ExternalLink, Github, X, ChevronLeft, ChevronRight } from "lucide-react"
 
 import { CustomCursor } from "@/components/portfolio-v3/CustomCursor"
 import { MouseParticles } from "@/components/portfolio-v3/MouseParticles"
@@ -19,7 +19,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Design and development of a full-featured multi-tenant school management platform covering attendance, timetables, work hours, grades, events, and enrollments. Engineered a secure, scalable architecture with role-based access (RBAC) and real-time communication via WebSockets.",
     tech: ["Laravel 12", "Next.js 16", "PostgreSQL", "Azure", "Neon", "WebSockets"],
     skillsAcquired: ["SaaS Architecture", "Multi-tenancy", "RBAC", "JWT authentication", "Real-time communication"],
-    screenshots: ["/placeholder.svg", "/placeholder.svg"],
+    screenshots: [],
     live: "https://school-management-frontend-ashen.vercel.app",
     github: "https://github.com/samibentaarit/school-management",
   },
@@ -29,7 +29,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Implemented a deterministic game engine to guarantee rule consistency using TypeScript, React, Node.js, and Socket.IO. Handles lobbies, turns, special card effects, and round progression.",
     tech: ["TypeScript", "React", "Node.js", "Socket.IO", "Express", "Vite"],
     skillsAcquired: ["Authoritative server architecture", "Deterministic engine", "WebSocket networking", "Real-time state sync"],
-    screenshots: ["/placeholder.svg", "/placeholder.svg"],
+    screenshots: [],
     live: "https://pablo-sable-beta.vercel.app",
     github: "https://github.com/samibentaarit/pablo",
   },
@@ -39,11 +39,11 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
     tech: ["Laravel", "Next.js", "MySQL", "Azure", "Vercel"],
     skillsAcquired: ["Full-stack development", "Cloud Infrastructure (Azure)", "Role-based access control", "AI/ML Integration"],
-    screenshots: ["/images/image.png", "/placeholder-logo.png"],
+    screenshots: [],
     videos: [
-      "https://res.cloudinary.com/df2fpgtde/video/upload/Portfolio/pfe_part1.mp4",
-      "https://res.cloudinary.com/df2fpgtde/video/upload/Portfolio/pfe_part2.mp4",
-      "https://res.cloudinary.com/df2fpgtde/video/upload/Portfolio/pfe_part3.mp4",
+      "https://res.cloudinary.com/df2fpgtde/video/upload/v1779215546/pfe_part_1_R%C3%A9alis%C3%A9e_avec_Clipchamp_vlx2xw.mp4",
+      "https://res.cloudinary.com/df2fpgtde/video/upload/v1779217461/Part_2_R%C3%A9alis%C3%A9e_Avec_Clipchamp_ef9nvy.mp4",
+      "https://res.cloudinary.com/df2fpgtde/video/upload/v1779215545/part_3_R%C3%A9alis%C3%A9e_avec_Clipchamp_hjwoaz.mp4",
     ],
     live: "https://front-end-updated-lemon.vercel.app/auth/signin",
     github: "https://github.com/samibentaarit/hotel-management",
@@ -54,7 +54,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Summer Internship project. Improved communication and centralized announcements, notifications, and messaging using React, Flutter, Node.js, and MongoDB.",
     tech: ["React", "Flutter", "Node.js", "MongoDB"],
     skillsAcquired: ["Mobile App Development", "Cross-Platform UI", "REST API Development", "NoSQL Database Integration"],
-    screenshots: ["/logos/roam-maze-mobile-app-logo.png", "/images/placeholder.svg"],
+    screenshots: ["/logos/roam-maze-mobile-app-logo.png"],
     live: "#",
     github: "#",
   },
@@ -64,7 +64,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Developed for Les Nouvelles Générations. Allows administration to manage bus routes, schedules, and driver assignments while providing parents with real-time updates.",
     tech: ["Spring Boot", "Angular", "MySQL"],
     skillsAcquired: ["Enterprise Java", "Angular Frontend Design", "Geospatial Routing Concepts", "Relational DB Architecture"],
-    screenshots: ["/logos/private-school-logo-blue.jpg", "/images/placeholder.svg"],
+    screenshots: ["/logos/private-school-logo-blue.jpg"],
     live: "#",
     github: "#",
   },
@@ -74,7 +74,7 @@ const PROJECTS_DB: Record<string, any> = {
     fullDescription: "Created at BFI Groupe. A centralized project version tracking and artifact management system integrating GitLab and Artifactory APIs.",
     tech: ["Angular", "Spring Boot", "GitLab API", "Artifactory"],
     skillsAcquired: ["API Integrations", "DevOps Pipelines", "System Architecture", "Continuous Integration"],
-    screenshots: ["/logos/bfi-group-corporate-logo.svg", "/images/placeholder.svg"],
+    screenshots: ["/logos/bfi-group-corporate-logo.svg"],
     live: "#",
     github: "#",
   }
@@ -105,6 +105,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
+  const [selectedMediaIndex, setSelectedMediaIndex] = useState<number | null>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -129,7 +130,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
   const videoCount = project.videos?.length ?? 0
 
   const mediaItems = [
-    ...(project.screenshots ?? []).map((src: string, index: number) => ({
+    ...(project.screenshots ?? []).filter((src: string) => src && !src.includes("placeholder")).map((src: string, index: number) => ({
       type: "image",
       src,
       sourceIndex: index,
@@ -222,25 +223,27 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                 <h2 className="text-3xl font-bold mb-6 flex items-center"><span className="text-emerald-400 mr-4">/03</span> Showcase</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {mediaItems.map((media, index) => (
-                    <div key={`${media.type}-${media.sourceIndex}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
-                      <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm pointer-events-none">
+                    <div 
+                      key={`${media.type}-${index}`} 
+                      className="rounded-xl overflow-hidden border border-white/10 group relative cursor-pointer"
+                      onClick={() => setSelectedMediaIndex(index)}
+                    >
+                      <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm">
                         <span className="font-bold text-white tracking-widest uppercase text-sm">View Layer</span>
                       </div>
                       {media.type === "video" ? (
                         <video
                           className="w-full h-48 object-cover bg-black"
-                          controls
                           preload="metadata"
-                          aria-label={`${project.title} demo video ${media.sourceIndex + 1}${videoCount > 1 ? ` of ${videoCount}` : ""}`}
-                          title={`${project.title} demo video ${media.sourceIndex + 1}${videoCount > 1 ? ` of ${videoCount}` : ""}`}
+                          muted // Muted in the grid so playing on hover or just showing the poster is easier
+                          playsInline
                         >
                           <source src={media.src} type="video/mp4" />
-                          Your browser does not support the video tag.
                         </video>
                       ) : (
                         <img
                           src={media.src}
-                          alt={`${project.title} screenshot ${media.sourceIndex + 1}${screenshotCount > 1 ? ` of ${screenshotCount}` : ""}`}
+                          alt={`${project.title} screenshot`}
                           className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                       )}
@@ -269,17 +272,105 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
               </div>
 
               <div className="mt-12 space-y-4">
-                <a href={project.live} target="_blank" rel="noopener noreferrer" className="block text-center px-6 py-4 bg-emerald-400 text-black hover:bg-emerald-300 rounded-xl font-bold transition-colors">
-                  <ExternalLink className="inline-block mr-2" size={18} /> Live Preview
-                </a>
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="block text-center px-6 py-4 bg-transparent border border-white/20 hover:border-white/50 text-white rounded-xl transition-colors">
-                  <Github className="inline-block mr-2" size={18} /> Source Code
-                </a>
+                {project.live && project.live !== "#" && (
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="block text-center px-6 py-4 bg-emerald-400 text-black hover:bg-emerald-300 rounded-xl font-bold transition-colors">
+                    <ExternalLink className="inline-block mr-2" size={18} /> Live Preview
+                  </a>
+                )}
+                {project.github && project.github !== "#" && (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="block text-center px-6 py-4 bg-transparent border border-white/20 hover:border-white/50 text-white rounded-xl transition-colors">
+                    <Github className="inline-block mr-2" size={18} /> Source Code
+                  </a>
+                )}
               </div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Media Lightbox Modal */}
+      <AnimatePresence>
+        {selectedMediaIndex !== null && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center pointer-events-auto"
+          >
+            {/* Close Button */}
+            <button 
+              className="absolute top-6 right-6 p-4 bg-white/10 hover:bg-emerald-400 hover:text-black rounded-full transition-colors backdrop-blur-md z-50 text-white"
+              onClick={() => setSelectedMediaIndex(null)}
+            >
+              <X size={24} />
+            </button>
+
+            {/* Previous Button */}
+            {mediaItems.length > 1 && (
+              <button 
+                className="absolute left-6 p-4 bg-white/10 hover:bg-emerald-400 hover:text-black rounded-full transition-colors backdrop-blur-md z-50 text-white"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedMediaIndex((selectedMediaIndex - 1 + mediaItems.length) % mediaItems.length)
+                }}
+              >
+                <ChevronLeft size={32} />
+              </button>
+            )}
+
+            {/* Media Content */}
+            <motion.div 
+              key={selectedMediaIndex}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-6xl max-h-[80vh] w-full p-6 flex flex-col items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {mediaItems[selectedMediaIndex].type === "video" ? (
+                <video
+                  className="max-w-full max-h-[80vh] rounded-2xl shadow-2xl border-4 border-white/10"
+                  controls
+                  autoPlay
+                  preload="metadata"
+                >
+                  <source src={mediaItems[selectedMediaIndex].src} type="video/mp4" />
+                </video>
+              ) : (
+                <img
+                  src={mediaItems[selectedMediaIndex].src}
+                  alt={`${project.title} detailed view`}
+                  className="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl border-4 border-white/10"
+                />
+              )}
+              
+              <div className="mt-6 flex items-center justify-center space-x-2">
+                {mediaItems.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedMediaIndex(idx)}
+                    className={`w-3 h-3 rounded-full transition-all ${idx === selectedMediaIndex ? 'bg-emerald-400 scale-125' : 'bg-white/30 hover:bg-white/60'}`}
+                  />
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Next Button */}
+            {mediaItems.length > 1 && (
+              <button 
+                className="absolute right-6 p-4 bg-white/10 hover:bg-emerald-400 hover:text-black rounded-full transition-colors backdrop-blur-md z-50 text-white"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedMediaIndex((selectedMediaIndex + 1) % mediaItems.length)
+                }}
+              >
+                <ChevronRight size={32} />
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Project Navigation Footer */}
       <section className="relative z-10 py-16 px-6 max-w-6xl mx-auto border-t border-white/10 flex justify-between items-center z-50 pointer-events-auto">
