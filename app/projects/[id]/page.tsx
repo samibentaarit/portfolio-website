@@ -126,8 +126,16 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
   }
 
   const mediaItems = [
-    ...(project.videos ?? []).map((src: string) => ({ type: "video", src })),
-    ...(project.screenshots ?? []).map((src: string) => ({ type: "image", src })),
+    ...(project.screenshots ?? []).map((src: string, index: number) => ({
+      type: "image",
+      src,
+      imageIndex: index,
+    })),
+    ...(project.videos ?? []).map((src: string, index: number) => ({
+      type: "video",
+      src,
+      videoIndex: index,
+    })),
   ].map((media, index) => ({ ...media, mediaIndex: index }))
 
   return (
@@ -220,8 +228,8 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                           className="w-full h-48 object-cover bg-black"
                           controls
                           preload="metadata"
-                          aria-label={`${project.title} demo video ${media.mediaIndex + 1}`}
-                          title={`${project.title} demo video ${media.mediaIndex + 1}`}
+                          aria-label={`${project.title} demo video ${media.videoIndex + 1}`}
+                          title={`${project.title} demo video ${media.videoIndex + 1}`}
                         >
                           <source src={media.src} type="video/mp4" />
                           Your browser does not support the video tag.
@@ -229,7 +237,7 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                       ) : (
                         <img
                           src={media.src}
-                          alt={`${project.title} screenshot ${media.mediaIndex + 1}`}
+                          alt={`${project.title} screenshot ${media.imageIndex + 1}`}
                           className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
                         />
                       )}
