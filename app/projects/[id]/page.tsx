@@ -33,13 +33,18 @@ const PROJECTS_DB: Record<string, any> = {
     live: "https://pablo-sable-beta.vercel.app",
     github: "https://github.com/samibentaarit/pablo",
   },
-    "hotel-management": {
+  "hotel-management": {
     title: "Hotel Management Web App",
     shortDescription: "End Of Engineering Studies @ Tunisie Booking",
     fullDescription: "Centralized hotel operations including reservations, room management, and user access control. Simplified daily administrative workflows for hotel staff through the automation of contract creation and role-based access. Integrated an AI-assisted pricing suggestion feature.",
     tech: ["Laravel", "Next.js", "MySQL", "Azure", "Vercel"],
     skillsAcquired: ["Full-stack development", "Cloud Infrastructure (Azure)", "Role-based access control", "AI/ML Integration"],
     screenshots: ["/images/image.png", "/placeholder-logo.png"],
+    videos: [
+      "https://res.cloudinary.com/df2fpgtde/video/upload/Portfolio/pfe_part1.mp4",
+      "https://res.cloudinary.com/df2fpgtde/video/upload/Portfolio/pfe_part2.mp4",
+      "https://res.cloudinary.com/df2fpgtde/video/upload/Portfolio/pfe_part3.mp4",
+    ],
     live: "https://front-end-updated-lemon.vercel.app/auth/signin",
     github: "https://github.com/samibentaarit/hotel-management",
   },
@@ -120,6 +125,22 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
     )
   }
 
+  const screenshotCount = project.screenshots?.length ?? 0
+  const videoCount = project.videos?.length ?? 0
+
+  const mediaItems = [
+    ...(project.screenshots ?? []).map((src: string, index: number) => ({
+      type: "image",
+      src,
+      sourceIndex: index,
+    })),
+    ...(project.videos ?? []).map((src: string, index: number) => ({
+      type: "video",
+      src,
+      sourceIndex: index,
+    })),
+  ]
+
   return (
     <div ref={containerRef} className="relative bg-black min-h-screen text-white font-sans overflow-hidden cursor-none selection:bg-emerald-400/30">
       <CustomCursor />
@@ -196,17 +217,34 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
               </div>
             </div>
 
-            {project.screenshots && project.screenshots.length > 0 && (
+            {mediaItems.length > 0 && (
               <div>
                 <h2 className="text-3xl font-bold mb-6 flex items-center"><span className="text-emerald-400 mr-4">/03</span> Showcase</h2>
                 <div className="grid sm:grid-cols-2 gap-6">
-                  {project.screenshots.map((src: string, index: number) => (
-                     <div key={index} className="rounded-xl overflow-hidden border border-white/10 group relative">
-                       <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm">
-                         <span className="font-bold text-white tracking-widest uppercase text-sm">View Layer</span>
-                       </div>
-                       <img src={src} alt="Screenshot" className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
-                     </div>
+                  {mediaItems.map((media, index) => (
+                    <div key={`${media.type}-${media.sourceIndex}`} className="rounded-xl overflow-hidden border border-white/10 group relative">
+                      <div className="absolute inset-0 bg-emerald-400/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center backdrop-blur-sm pointer-events-none">
+                        <span className="font-bold text-white tracking-widest uppercase text-sm">View Layer</span>
+                      </div>
+                      {media.type === "video" ? (
+                        <video
+                          className="w-full h-48 object-cover bg-black"
+                          controls
+                          preload="metadata"
+                          aria-label={`${project.title} demo video ${media.sourceIndex + 1}${videoCount > 1 ? ` of ${videoCount}` : ""}`}
+                          title={`${project.title} demo video ${media.sourceIndex + 1}${videoCount > 1 ? ` of ${videoCount}` : ""}`}
+                        >
+                          <source src={media.src} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <img
+                          src={media.src}
+                          alt={`${project.title} screenshot ${media.sourceIndex + 1}${screenshotCount > 1 ? ` of ${screenshotCount}` : ""}`}
+                          className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                        />
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
