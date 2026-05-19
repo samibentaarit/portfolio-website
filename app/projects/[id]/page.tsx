@@ -221,12 +221,17 @@ export default function ProjectDetailV3({ params }: { params: Promise<{ id: stri
                           controls
                           preload="metadata"
                           aria-label={`${project.title} demo video ${media.mediaIndex + 1}`}
+                          title={`${project.title} demo video ${media.mediaIndex + 1}`}
                         >
                           <source src={media.src} type="video/mp4" />
                           Your browser does not support the video tag.
                         </video>
                       ) : (
-                        <img src={media.src} alt="Screenshot" className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                        <img
+                          src={media.src}
+                          alt={`${project.title} screenshot ${media.mediaIndex + 1}`}
+                          className="w-full h-48 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                        />
                       )}
                     </div>
                   ))}
