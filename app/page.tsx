@@ -9,7 +9,7 @@ import { ParallaxText } from "@/components/portfolio-v3/ParallaxText"
 import { MouseParticles } from "@/components/portfolio-v3/MouseParticles"
 import { GlitchText } from "@/components/portfolio-v3/GlitchText"
 import { PetCat } from "@/components/portfolio-v3/PetCat"
-import { ArrowRight, ChevronDown, Github, Linkedin, Mail, ExternalLink } from "lucide-react"
+import { ArrowRight, ChevronDown, Github, Linkedin, Mail, ExternalLink, Download } from "lucide-react"
 
 const IN_VIEW_VARIANTS: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -396,10 +396,28 @@ export default function PortfolioV3() {
             whileInView="show"
             viewport={{ once: true, margin: "-100px" }}
             variants={IN_VIEW_VARIANTS}
-            className="mb-20"
+            className="mb-20 flex flex-col md:flex-row md:items-center justify-between gap-6"
           >
-            <h2 className="text-5xl md:text-7xl font-black mb-4"><span className="text-primary">.</span>EXPERIENCE</h2>
-            <div className="w-24 h-1 bg-linear-to-r from-primary to-transparent" />
+            <div>
+              <h2 className="text-5xl md:text-7xl font-black mb-4"><span className="text-primary">.</span>EXPERIENCE</h2>
+              <div className="w-24 h-1 bg-linear-to-r from-primary to-transparent" />
+            </div>
+            
+            <div className="flex flex-row flex-wrap items-center gap-4">
+              <a href="/files/CV_Sami_Bentaarit_eng.pdf" download="CV_Sami_Bentaarit_EN.pdf" className="group relative inline-block">
+                <MagneticButton className="relative px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20 rounded-full font-bold text-sm flex flex-row items-center justify-center whitespace-nowrap gap-2 transition-all duration-300 w-auto">
+                  <Download size={16} className="shrink-0 group-hover:-translate-y-1 transition-transform" />
+                  <span className="shrink-0 leading-none">CV (EN)</span>
+                </MagneticButton>
+              </a>
+
+              <a href="/files/CV_Sami_Bentaarit_fr.pdf" download="CV_Sami_Bentaarit_FR.pdf" className="group relative inline-block">
+                <MagneticButton className="relative px-6 py-3 bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20 rounded-full font-bold text-sm flex flex-row items-center justify-center whitespace-nowrap gap-2 transition-all duration-300 w-auto">
+                  <Download size={16} className="shrink-0 group-hover:-translate-y-1 transition-transform" />
+                  <span className="shrink-0 leading-none">CV (FR)</span>
+                </MagneticButton>
+              </a>
+            </div>
           </motion.div>
 
           <div className="space-y-16">
