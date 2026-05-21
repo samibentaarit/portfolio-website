@@ -12,6 +12,24 @@ const _jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: '--font-je
 export const metadata: Metadata = {
   title: 'Sami Bentaarit - Portfolio',
   description: 'Sami\'s Portfolio Website',
+  openGraph: {
+    title: 'Sami Bentaarit - Portfolio',
+    description: 'Sami\'s Portfolio Website',
+    images: [
+      {
+        url: '/logos/logo_SB.svg',
+        width: 800,
+        height: 600,
+        alt: 'Sami Bentaarit Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sami Bentaarit - Portfolio',
+    description: 'Sami\'s Portfolio Website',
+    images: ['/logos/logo_SB.svg'],
+  },
   icons: {
     icon: [
       {
