@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'Sami\'s Portfolio Website',
     images: [
       {
-        url: '/logos/logo_SB.svg',
+        url: '/logos/logo_sb.svg',
         width: 800,
         height: 600,
         alt: 'Sami Bentaarit Logo',
@@ -28,24 +28,24 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Sami Bentaarit - Portfolio',
     description: 'Sami\'s Portfolio Website',
-    images: ['/logos/logo_SB.svg'],
+    images: ['/logos/logo_sb.svg'],
   },
   icons: {
     icon: [
       {
-        url: '/logos/logo_SB.svg',
+        url: '/logos/logo_sb.svg',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/logos/logo_SB.svg',
+        url: '/logos/logo_sb.svg',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/logos/logo_SB.svg',
+        url: '/logos/logo_sb.svg',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/logos/logo_SB.svg',
+    apple: '/logos/logo_sb.svg',
   },
 }
 
