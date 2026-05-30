@@ -9,6 +9,7 @@ import { ParallaxText } from "@/components/portfolio-v3/ParallaxText"
 import { MouseParticles } from "@/components/portfolio-v3/MouseParticles"
 import { GlitchText } from "@/components/portfolio-v3/GlitchText"
 import { PetCat } from "@/components/portfolio-v3/PetCat"
+import { VisitCounter } from "@/components/visit-counter"
 import { ArrowRight, ChevronDown, Github, Linkedin, Mail, ExternalLink, Download } from "lucide-react"
 
 const IN_VIEW_VARIANTS: Variants = {
@@ -220,6 +221,15 @@ export default function PortfolioV3() {
             >
               I build applications that live right at the intersection of beautiful design and robust architecture. I actually care about how users interact with the front-end just as much as the reliability of the back-end powering it.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.62 }}
+              className="mt-8"
+            >
+              <VisitCounter />
+            </motion.div>
             
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
