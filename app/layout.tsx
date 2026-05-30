@@ -56,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${_spaceGrotesk.variable} ${_inter.variable} ${_jetbrainsMono.variable}`} data-scroll-behavior="smooth">
-      <body className="font-sans antialiased">
+      <body className="relative font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

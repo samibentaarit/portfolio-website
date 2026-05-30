@@ -191,7 +191,7 @@ export default function PortfolioV3() {
               className="mb-6 flex items-center gap-4"
             >
               <div className="h-1 w-12 bg-primary rounded-full" />
-              <span className="font-mono text-primary uppercase tracking-widest text-lm lg:text-xl">Sami Ben Taarit — Software Engineer</span>
+              <span className="font-mono text-primary uppercase tracking-widest text-lm lg:text-xl">Sami Ben Taarit </span>
             </motion.div>
 
             <div className="overflow-hidden -ml-1">
