@@ -37,16 +37,13 @@ export function VisitCounter() {
   }, [])
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.08)]">
-      <p className="font-mono text-xs uppercase tracking-[0.35em] text-primary/80">Live visits</p>
-      <p className="mt-2 text-3xl font-black tracking-tight text-white">
-        {visits === null ? "—" : visits.toLocaleString()}
-      </p>
-      <p className="mt-1 text-sm text-gray-300">
-        {enabled
-          ? "Counted through a server-side pageview counter."
-          : "Add UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN to enable counting."}
-      </p>
+    <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3 py-2 text-white shadow-[0_0_24px_rgba(6,182,212,0.12)] backdrop-blur-md">
+      <span className="flex h-2.5 w-2.5 rounded-full bg-primary shadow-[0_0_12px_rgba(6,182,212,0.85)]" />
+      <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">Visits</span>
+      <span className="font-black tabular-nums text-sm leading-none text-white">
+        {visits ?? 0}
+      </span>
+      {enabled ? null : <span className="hidden sm:inline font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">dev</span>}
     </div>
   )
 }

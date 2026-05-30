@@ -174,9 +174,12 @@ export default function PortfolioV3() {
           SB<span className="text-primary">.</span>
         </div>
         
-        <div className="absolute top-8 right-8 flex gap-4 z-50">
-          <a href="https://github.com/samibentaarit" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Github /></a>
-          <a href="https://www.linkedin.com/in/sami-bentaarit-4a4016222/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Linkedin /></a>
+        <div className="absolute top-8 right-8 z-50 flex items-center gap-3">
+          <VisitCounter />
+          <div className="flex items-center gap-4 rounded-full border border-white/10 bg-black/35 px-4 py-2 backdrop-blur-md">
+            <a href="https://github.com/samibentaarit" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Github /></a>
+            <a href="https://www.linkedin.com/in/sami-bentaarit-4a4016222/" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition-colors mix-blend-difference"><Linkedin /></a>
+          </div>
         </div>
 
         <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -222,15 +225,6 @@ export default function PortfolioV3() {
               I build applications that live right at the intersection of beautiful design and robust architecture. I actually care about how users interact with the front-end just as much as the reliability of the back-end powering it.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.62 }}
-              className="mt-8"
-            >
-              <VisitCounter />
-            </motion.div>
-            
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
