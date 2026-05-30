@@ -37,19 +37,29 @@ export default function PortfolioV3() {
   const [persona, setPersona] = useState("professional")
 
   useEffect(() => {
-    // Load persisted state
-    const saved = localStorage.getItem("portfolio-persona")
-    if (saved && PERSONAS.some(p => p.id === saved)) {
-      setPersona(saved)
+    if (typeof window === "undefined") return
+    // Preload non-default persona images after initial render.
+    const preload = () => {
+      PERSONAS.slice(1).forEach((p) => {
+        const img = new Image()
+        img.src = p.img
+      })
     }
 
-    // Keyboard shortcuts 1-4
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(preload)
+    } else {
+      window.setTimeout(preload, 200)
+    }
+  }, [])
+
+  useEffect(() => {
+    // Keyboard shortcuts 1-4 (do NOT persist selection to storage)
     const handleKeyDown = (e: KeyboardEvent) => {
       const num = parseInt(e.key)
       if (num >= 1 && num <= PERSONAS.length) {
         const pId = PERSONAS[num - 1].id
         setPersona(pId)
-        localStorage.setItem("portfolio-persona", pId)
       }
     }
 
@@ -58,8 +68,8 @@ export default function PortfolioV3() {
   }, [])
 
   const handlePersonaChange = (id: string) => {
+    // update persona in-memory only; do not persist across routes
     setPersona(id)
-    localStorage.setItem("portfolio-persona", id)
   }
 
   useEffect(() => {
