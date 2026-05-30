@@ -78,7 +78,7 @@ export function ProjectCard({ id, title, company, period, description, logo, ind
           </div>
           <Link
             href={id ? `/projects/${id}` : "/projects/"}
-            className="flex items-center justify-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-white/10 hover:bg-primary hover:text-black text-white transition-colors group/link"
+            className="flex items-center justify-center gap-2 px-4 py-2 mt-4 sm:mt-0 rounded-full bg-emerald-500 text-black hover:bg-emerald-600 hover:text-white transition-colors group/link"
           >
             <span className="text-sm font-bold whitespace-nowrap">View Details</span>
             <motion.span whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} style={{ display: 'flex' }}>

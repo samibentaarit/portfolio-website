@@ -9,8 +9,8 @@ import { ParallaxText } from "@/components/portfolio-v3/ParallaxText"
 import { MouseParticles } from "@/components/portfolio-v3/MouseParticles"
 import { GlitchText } from "@/components/portfolio-v3/GlitchText"
 import { PetCat } from "@/components/portfolio-v3/PetCat"
-import { VisitCounter } from "@/components/visit-counter"
 import { ArrowRight, ChevronDown, Github, Linkedin, Mail, ExternalLink, Download } from "lucide-react"
+import { VisitCounter } from "@/components/visit-counter"
 
 const IN_VIEW_VARIANTS: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -183,7 +183,7 @@ export default function PortfolioV3() {
         </div>
 
         <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col items-start text-left z-20">
+          <div className="flex flex-col items-start text-left z-20 pr-6">
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -194,25 +194,29 @@ export default function PortfolioV3() {
               <span className="font-mono text-primary uppercase tracking-widest text-lm lg:text-xl">Sami Ben Taarit — Software Engineer</span>
             </motion.div>
 
-            <div className="overflow-hidden mb-2 -ml-1">
+            <div className="overflow-hidden -ml-1">
               <motion.div 
                 initial={{ y: "100%", rotate: 2 }}
                 animate={{ y: "0%", rotate: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.33, 1, 0.68, 1] }}
               >
-                <GlitchText text="SOFTWARE" className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-none block" />
+                <div style={{ fontSize: 'clamp(2.5rem, 8vw, 6.8rem)', lineHeight: 0.82, marginBottom: '0.1rem' }}>
+                  <GlitchText text="SOFTWARE" className="font-black tracking-tighter leading-none block" />
+                </div>
               </motion.div>
             </div>
-            <div className="overflow-hidden mb-6 -ml-1">
+            <div className="overflow-hidden -ml-1">
               <motion.div 
                 initial={{ y: "100%", rotate: -2 }}
                 animate={{ y: "0%", rotate: 0 }}
                 transition={{ duration: 0.8, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
               >
-                <GlitchText 
-                  text="ENGINEER" 
-                  className="text-5xl md:text-7xl lg:text-[6.5rem] font-black tracking-tighter leading-none text-emerald-400 block" 
-                />
+                <div style={{ fontSize: 'clamp(2rem, 7vw, 6.5rem)', lineHeight: 0.82, marginTop: '0.1rem' }}>
+                  <GlitchText
+                    text="ENGINEER"
+                    className="font-black tracking-tighter leading-none text-emerald-400 block"
+                  />
+                </div>
               </motion.div>
             </div>
             
@@ -224,7 +228,7 @@ export default function PortfolioV3() {
             >
               I build applications that live right at the intersection of beautiful design and robust architecture. I actually care about how users interact with the front-end just as much as the reliability of the back-end powering it.
             </motion.p>
-
+            
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -245,7 +249,7 @@ export default function PortfolioV3() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex relative h-150 lg:h-150 w-full mt-10 lg:mt-0 order-first lg:order-last justify-center items-center"
+            className="flex relative h-150 lg:h-150 w-full mt-10 lg:mt-10 order-first lg:order-last justify-center items-center"
           >
             {/* Soft backdrop glow */}
             <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-emerald-500/20 mix-blend-overlay rounded-3xl blur-3xl opacity-50" />
