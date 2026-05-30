@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
+import { SWRegister } from './sw-register'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -57,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${_spaceGrotesk.variable} ${_inter.variable} ${_jetbrainsMono.variable}`} data-scroll-behavior="smooth">
       <body className="relative font-sans antialiased">
+        <SWRegister />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
